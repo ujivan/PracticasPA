@@ -50,7 +50,8 @@ public class CSV {
                     for (String value : values) {
                         row.getData().add(Double.parseDouble(value));
                     }
-                    //table.addRowLabel(row);
+                    int classNumber = row.getNumberClass();
+                    table.addRowLabel(Integer.toString(classNumber));
                 }
             }
         } catch (IOException e) {
