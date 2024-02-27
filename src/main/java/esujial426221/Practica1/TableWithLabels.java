@@ -11,18 +11,15 @@ public class TableWithLabels extends Table{
 
 
     public RowWithLabel getRowAt(int n) {
-        return (RowWithLabel) rows.get(n);
+        return (RowWithLabel) super.getRowAt(n);
     }
 
     public int addRowLabel(String label) {
         if (labelsToIndex.containsKey(label)){
             return labelsToIndex.get(label);
         }
-        labelsToIndex.put(label, labelsToIndex.size()+1);
-        return labelsToIndex.get(label);
+        int index = labelsToIndex.size() + 1;
+        labelsToIndex.put(label, index);
+        return index;
     }
-
-
-
-
 }
