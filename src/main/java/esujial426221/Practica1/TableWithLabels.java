@@ -7,7 +7,7 @@ import java.util.Map;
 
 
 public class TableWithLabels extends Table{
-    Map<String,Integer> labelsToIndex = new HashMap<>();
+    public Map<String,Integer> labelsToIndex = new HashMap<>();
 
 
     public RowWithLabel getRowAt(int n) {

@@ -11,8 +11,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class TableWithLabelsTest {
 
     @Test
-    void NumeroFilaTableWithLabels() throws FileNotFoundException {
-        String rutaFichero = "archivos"+ File.separator+"iris.cvs";
+    void numeroFilaTableWithLabels() throws FileNotFoundException {
+        String rutaFichero = "archivos"+ File.separator+"iris.csv";
         Scanner tabla = new Scanner(new File(rutaFichero));
         int contadorfilas = 0;
 
@@ -22,8 +22,18 @@ class TableWithLabelsTest {
         }
         tabla.close();
 
-        Table tablaMetodo = CSV.readTableWithLabel(rutaFichero);
-        assertEquals(tablaMetodo.headers.size()+1, contadorfilas);
+        TableWithLabels tablaMetodo = CSV.readTableWithLabel(rutaFichero);
+        assertEquals(tablaMetodo.rows.size()+1, contadorfilas);
+    }
+
+    @Test
+    void nombreEtiquetas() throws FileNotFoundException {
+        String rutaFichero = "archivos"+ File.separator+"iris.csv";
+        Scanner tabla = new Scanner(new File(rutaFichero));
+
+        TableWithLabels tablaMetodo  = CSV.readTableWithLabel(rutaFichero);
+
+        assertEquals(1, tablaMetodo.labelsToIndex.get("setosa"));
     }
 
 
