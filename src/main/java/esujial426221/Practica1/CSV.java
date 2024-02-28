@@ -6,8 +6,9 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CSV {
-    public Table readTable(String file) {
+
+public class CSV extends Table{
+    public static Table readTable(String file)  {
         Table table = new Table();
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
@@ -33,7 +34,7 @@ public class CSV {
         return table;
     }
 
-    public TableWithLabels readTableWithLabel(String file) {
+    public static TableWithLabels readTableWithLabel(String file) {
         TableWithLabels table = new TableWithLabels();
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
