@@ -33,7 +33,7 @@ public class CSV extends Table {
         return table;
     }
 
-    public TableWithLabels readTableWithLabel(String file) {
+    public static TableWithLabels readTableWithLabel(String file) {
         TableWithLabels table = new TableWithLabels();
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;

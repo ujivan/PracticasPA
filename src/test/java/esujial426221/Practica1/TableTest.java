@@ -1,6 +1,5 @@
 package esujial426221.Practica1;
 
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -13,8 +12,8 @@ class TableTest {
 
     @Test
     void FilasTest() throws FileNotFoundException {
-        String ruta = "archivos"+ File.separator+"milles_dollar.cvs";
-        Scanner tabla = new Scanner(new File(ruta));
+        String rutaFichero = "archivos"+ File.separator+"milles_dollar.cvs";
+        Scanner tabla = new Scanner(new File(rutaFichero));
         int contadorfilas = 0;
 
         while (tabla.hasNextLine()){
@@ -23,7 +22,7 @@ class TableTest {
         }
         tabla.close();
 
-        Table tablaMetodo = CSV.readTable(ruta);
+        Table tablaMetodo = CSV.readTable(rutaFichero);
         assertEquals(tablaMetodo.headers.size()+1, contadorfilas);
     }
 }

@@ -8,12 +8,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class RowTest {
 
     @Test
-    @DisplayName("TestNumeroFilaCorrecto")
     void getData() {
-        CSV table = new CSV();
-        table.readTable("milles_dollars.csv");
 
-        
 
 
     }
