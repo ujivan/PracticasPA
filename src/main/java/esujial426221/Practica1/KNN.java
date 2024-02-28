@@ -4,6 +4,7 @@ import java.util.List;
 
 public class KNN {
     private TableWithLabels tdata;
+    //SI
     public void train(TableWithLabels data) {
         this.tdata = data;
     }
