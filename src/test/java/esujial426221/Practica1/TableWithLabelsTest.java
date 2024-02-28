@@ -12,7 +12,7 @@ class TableWithLabelsTest {
 
     @Test
     void NumeroFilaTableWithLabels() throws FileNotFoundException {
-        String rutaFichero = "archivos"+ File.separator+"milles_dollar.cvs";
+        String rutaFichero = "archivos"+ File.separator+"iris.cvs";
         Scanner tabla = new Scanner(new File(rutaFichero));
         int contadorfilas = 0;
 

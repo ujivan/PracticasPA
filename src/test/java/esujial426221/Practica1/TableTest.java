@@ -25,4 +25,11 @@ class TableTest {
         Table tablaMetodo = CSV.readTable(rutaFichero);
         assertEquals(tablaMetodo.headers.size()+1, contadorfilas);
     }
+    @Test
+    void ColumnasTest() throws FileNotFoundException {
+        String rutaFichero = "archivos"+ File.separator+"milles_dollar.cvs";
+        Scanner tabla = new Scanner(new File(rutaFichero));
+
+
+    }
 }
