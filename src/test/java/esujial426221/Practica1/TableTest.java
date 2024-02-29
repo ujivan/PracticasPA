@@ -55,12 +55,11 @@ class TableTest {
         List<String> listaHeaders = new ArrayList<>();
         String primeraLinea = tabla.nextLine();
 
-        String[] cabeceras = primeraLinea.split(" ");
+        String[] cabeceras = primeraLinea.split(",");
         listaHeaders.addAll(List.of(cabeceras));
 
-        for (int i = 0; i < tablaMetodo.headers.size(); i++){
-            assertEquals(tablaMetodo.headers.get(i), listaHeaders.get(i));
-        }
+        assertEquals(tablaMetodo.headers, listaHeaders);
+
     }
 
 
