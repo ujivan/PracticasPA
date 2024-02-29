@@ -14,7 +14,7 @@ class TableTest {
 
     @Test
     void filasTest() throws FileNotFoundException {
-        String rutaFichero = "archivos"+ File.separator+"milles_dollar.csv";
+        String rutaFichero = "archivos"+ File.separator+"miles_dollars.csv";
         Scanner tabla = new Scanner(new File(rutaFichero));
         int contadorfilas = 0;
 
@@ -26,10 +26,12 @@ class TableTest {
 
         Table tablaMetodo = CSV.readTable(rutaFichero);
         assertEquals(tablaMetodo.rows.size()+1, contadorfilas);
+
+
     }
     @Test
     void columnasTest() throws FileNotFoundException {
-        String rutaFichero = "archivos"+ File.separator+"milles_dollar.csv";
+        String rutaFichero = "archivos"+ File.separator+"miles_dollars.csv";
         Scanner tabla = new Scanner(new File(rutaFichero));
 
         int contadorColumnas = 1;
@@ -45,7 +47,7 @@ class TableTest {
 
     @Test
     void headersTest() throws FileNotFoundException {
-        String rutaFichero = "archivos"+ File.separator+"milles_dollar.csv";
+        String rutaFichero = "archivos"+ File.separator+"miles_dollars.csv";
         Scanner tabla = new Scanner(new File(rutaFichero));
 
         Table tablaMetodo = CSV.readTable(rutaFichero);
@@ -60,5 +62,7 @@ class TableTest {
             assertEquals(tablaMetodo.headers.get(i), listaHeaders.get(i));
         }
     }
+
+
 
 }

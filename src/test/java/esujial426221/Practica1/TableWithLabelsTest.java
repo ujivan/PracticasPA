@@ -33,7 +33,7 @@ class TableWithLabelsTest {
 
         TableWithLabels tablaMetodo  = CSV.readTableWithLabel(rutaFichero);
 
-        assertEquals(1, tablaMetodo.labelsToIndex.get("setosa"));
+        assertEquals(tablaMetodo.getRowAt(1), tablaMetodo.labelsToIndex.get("setosa"));
     }
 
 
