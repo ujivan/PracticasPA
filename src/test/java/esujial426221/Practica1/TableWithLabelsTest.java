@@ -61,7 +61,7 @@ class TableWithLabelsTest {
 
     }
     @Test
-    void numeroFilas() throws FileNotFoundException {
+    void numeroFilasConLabels() throws FileNotFoundException {
         String rutaFichero = "archivos"+ File.separator+"iris.csv";
         Scanner tabla = new Scanner(new File(rutaFichero));
         String label = "";
@@ -90,6 +90,32 @@ class TableWithLabelsTest {
         }
         tabla.close();
     }
+
+    @Test
+    void copararContenidoFilas() throws FileNotFoundException {
+        String rutaFichero = "archivos"+ File.separator+"iris.csv";
+        Scanner tabla = new Scanner(new File(rutaFichero));
+        TableWithLabels tablaMetodo = CSV.readTableWithLabel(rutaFichero);
+        String[] almacen;
+        int contador = 0;
+        String label = "";
+
+        while (tabla.hasNextLine()){
+            String linea = tabla.nextLine();
+            if (contador >= 1){
+                almacen = linea.split(",");
+                label = almacen[almacen.length-1];
+                RowWithLabel fila = tablaMetodo.rows.get(contador);
+                assertEquals(almacen, fila.data);
+            }
+            contador++;
+        }
+        tabla.close();
+
+    }
+
+
+
 
 
 }
