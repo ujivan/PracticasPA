@@ -34,14 +34,18 @@ class TableTest {
         String rutaFichero = "archivos"+ File.separator+"miles_dollars.csv";
         Scanner tabla = new Scanner(new File(rutaFichero));
 
-        int contadorColumnas = 1;
+        int contadorColumnas = 0;
+        int contador = 0;
         while (tabla.hasNextLine()){
             String linea = tabla.nextLine();
-            contadorColumnas = linea.length();
+            if (contador == 0){
+                contadorColumnas = linea.split(",").length;
+                break;
+            }
 
         }
         Table tablaMetodo = CSV.readTable(rutaFichero);
-        assertEquals(tablaMetodo.headers.size()+1, contadorColumnas);
+        assertEquals(tablaMetodo.headers.size(), contadorColumnas);
 
     }
 
