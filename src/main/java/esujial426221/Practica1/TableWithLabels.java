@@ -11,6 +11,7 @@ public class TableWithLabels extends Table{
     public Map<String,Integer> labelsToIndex = new HashMap<>();
 
     int num =  0;
+    public List<RowWithLabel> rows = new ArrayList<>();
 
 
     public RowWithLabel getRowAt(int n) {
@@ -44,5 +45,8 @@ public class TableWithLabels extends Table{
         labelsToIndex.put(label, num);
         num++;
         return true;
+    }
+    public void addRowWithLabel(List<Double> linea, int numero){
+        this.rows.add(new RowWithLabel(linea, numero));
     }
 }

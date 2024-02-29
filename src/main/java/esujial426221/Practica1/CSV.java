@@ -46,10 +46,11 @@ public class CSV extends Table{
                 } else {
                     List<String> output = List.of(line.split(","));
                     List<Double> outputDouble = new ArrayList<>();
-                    for (String value : output) {
-                        outputDouble.add(Double.valueOf(value));
+                    for (int i = 0; i < output.size()-1; i++) {
+                        outputDouble.add(Double.valueOf(output.get(i)));
                     }
                     int labelRef = table.search(output.get(output.size()-1));
+                    table.addRowWithLabel(outputDouble, labelRef);
 
                 }
             }

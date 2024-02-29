@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -27,14 +29,38 @@ class TableWithLabelsTest {
     }
 
     @Test
-    void nombreEtiquetas() throws FileNotFoundException {
+    void columnasTableWithLabelsTest() throws FileNotFoundException {
         String rutaFichero = "archivos"+ File.separator+"iris.csv";
         Scanner tabla = new Scanner(new File(rutaFichero));
 
-        TableWithLabels tablaMetodo  = CSV.readTableWithLabel(rutaFichero);
+        int contadorColumnas = 0;
 
-        assertEquals(tablaMetodo.getRowAt(1), tablaMetodo.labelsToIndex.get("setosa"));
+        String linea = tabla.nextLine();
+        contadorColumnas = linea.split(",").length;
+
+        tabla.close();
+        TableWithLabels tablaMetodo = CSV.readTableWithLabel(rutaFichero);
+        assertEquals(tablaMetodo.headers.size(), contadorColumnas);
+
     }
+
+    @Test
+    void headersTableWithLabelsTest() throws FileNotFoundException {
+        String rutaFichero = "archivos"+ File.separator+"iris.csv";
+        Scanner tabla = new Scanner(new File(rutaFichero));
+
+        TableWithLabels tablaMetodo = CSV.readTableWithLabel(rutaFichero);
+
+        List<String> listaHeaders = new ArrayList<>();
+        String primeraLinea = tabla.nextLine();
+
+        String[] cabeceras = primeraLinea.split(",");
+        listaHeaders.addAll(List.of(cabeceras));
+
+        assertEquals(tablaMetodo.headers, listaHeaders);
+
+    }
+
 
 
 }
