@@ -9,4 +9,9 @@ public class RowWithLabel extends Row{
         return numberClass;
     }
 
+    public RowWithLabel (List<Double> lista, int numero){
+        super(lista);
+        numberClass = numero;
+    }
+
 }

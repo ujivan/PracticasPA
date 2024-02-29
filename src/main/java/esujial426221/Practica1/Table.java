@@ -11,8 +11,8 @@ public class Table{
     public Row getRowAt(int rowNumber) {
         return rows.get(rowNumber);
     }
-    public void addRow(Row row) {
-        rows.add(row);
+    public void addRow(List<Double> linea) {
+        rows.add(new Row(linea));
     }
 
 }

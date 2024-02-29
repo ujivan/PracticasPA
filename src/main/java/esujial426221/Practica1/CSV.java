@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -14,18 +15,17 @@ public class CSV extends Table{
             String line;
             boolean firstLine = true;
             while ((line = br.readLine()) != null) {
-                String[] values = line.split("\t");
+
                 if (firstLine) {
-                    for (String value : values) {
-                        table.headers.add(value);
-                    }
+                    table.headers.add(String.valueOf(Arrays.asList(line.split(","))));
                     firstLine = false;
                 } else {
-                    Row row = new Row();
-                    for (String value : values) {
-                        row.getData().add(Double.parseDouble(value));
+                    String[] output = line.split(",");
+                    List<Double> outputDouble = new ArrayList<>();
+                    for (String value : output) {
+                        outputDouble.add(Double.valueOf(value));
                     }
-                    table.addRow(row);
+                    table.addRow(outputDouble);
                 }
             }
         } catch (IOException e) {
@@ -40,19 +40,17 @@ public class CSV extends Table{
             String line;
             boolean firstLine = true;
             while ((line = br.readLine()) != null) {
-                String[] values = line.split("\t");
                 if (firstLine) {
-                    for (String value : values) {
-                        table.headers.add(value);
-                    }
+                    table.headers.add(String.valueOf(Arrays.asList(line.split(","))));
                     firstLine = false;
                 } else {
-                    RowWithLabel row = new RowWithLabel();
-                    for (String value : values) {
-                        row.getData().add(Double.parseDouble(value));
+                    List<String> output = List.of(line.split(","));
+                    List<Double> outputDouble = new ArrayList<>();
+                    for (String value : output) {
+                        outputDouble.add(Double.valueOf(value));
                     }
-                    int classNumber = row.getNumberClass();
-                    table.addRowLabel(Integer.toString(classNumber));
+                    int labelRef = table.search(output.get(output.size()-1));
+
                 }
             }
         } catch (IOException e) {
