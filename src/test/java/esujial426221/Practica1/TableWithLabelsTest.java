@@ -60,7 +60,36 @@ class TableWithLabelsTest {
         assertEquals(tablaMetodo.headers, listaHeaders);
 
     }
+    @Test
+    void numeroFilas() throws FileNotFoundException {
+        String rutaFichero = "archivos"+ File.separator+"iris.csv";
+        Scanner tabla = new Scanner(new File(rutaFichero));
+        String label = "";
+        String[] almacen;
+        int contador = 0;
+        int numLinea = 0;
 
+        TableWithLabels tablaMetodo = CSV.readTableWithLabel(rutaFichero);
+
+        while (tabla.hasNextLine()){
+            String linea = tabla.nextLine();
+            almacen = linea.split(",");
+            if (contador == 1){
+                label = almacen[almacen.length-1];
+                assertEquals(tablaMetodo.labelsToIndex.get(label), numLinea);
+
+            } else if (contador > 1){
+                if (!label.equals(almacen[almacen.length-1])){
+                    numLinea++;
+                    label = almacen[almacen.length-1];
+                    assertEquals(tablaMetodo.labelsToIndex.get(label), numLinea);
+                }
+            }
+            contador++;
+
+        }
+        tabla.close();
+    }
 
 
 }
