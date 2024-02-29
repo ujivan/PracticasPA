@@ -15,4 +15,8 @@ public class Table{
         rows.add(new Row(linea));
     }
 
+    public void addHeaders(List<String> cabeceras){
+        headers = cabeceras;
+    }
+
 }

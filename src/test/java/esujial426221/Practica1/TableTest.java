@@ -35,15 +35,11 @@ class TableTest {
         Scanner tabla = new Scanner(new File(rutaFichero));
 
         int contadorColumnas = 0;
-        int contador = 0;
-        while (tabla.hasNextLine()){
-            String linea = tabla.nextLine();
-            if (contador == 0){
-                contadorColumnas = linea.split(",").length;
-                break;
-            }
 
-        }
+        String linea = tabla.nextLine();
+        contadorColumnas = linea.split(",").length;
+
+        tabla.close();
         Table tablaMetodo = CSV.readTable(rutaFichero);
         assertEquals(tablaMetodo.headers.size(), contadorColumnas);
 

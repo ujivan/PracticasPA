@@ -17,7 +17,7 @@ public class CSV extends Table{
             while ((line = br.readLine()) != null) {
 
                 if (firstLine) {
-                    table.headers.add(String.valueOf(Arrays.asList(line.split(","))));
+                    table.addHeaders(Arrays.asList(line.split(",")));
                     firstLine = false;
                 } else {
                     String[] output = line.split(",");
@@ -41,7 +41,7 @@ public class CSV extends Table{
             boolean firstLine = true;
             while ((line = br.readLine()) != null) {
                 if (firstLine) {
-                    table.headers.add(String.valueOf(Arrays.asList(line.split(","))));
+                    table.addHeaders(Arrays.asList(line.split(",")));
                     firstLine = false;
                 } else {
                     List<String> output = List.of(line.split(","));
