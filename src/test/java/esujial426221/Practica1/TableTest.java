@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -13,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class TableTest {
 
     @Test
-    void filasTest() throws FileNotFoundException {
+    void numFilasTable() throws FileNotFoundException {
         String rutaFichero = "archivos"+ File.separator+"miles_dollars.csv";
         Scanner tabla = new Scanner(new File(rutaFichero));
         int contadorfilas = 0;
@@ -30,7 +31,7 @@ class TableTest {
 
     }
     @Test
-    void columnasTest() throws FileNotFoundException {
+    void columnasTable() throws FileNotFoundException {
         String rutaFichero = "archivos"+ File.separator+"miles_dollars.csv";
         Scanner tabla = new Scanner(new File(rutaFichero));
 
@@ -46,7 +47,7 @@ class TableTest {
     }
 
     @Test
-    void headersTest() throws FileNotFoundException {
+    void headersTable() throws FileNotFoundException {
         String rutaFichero = "archivos"+ File.separator+"miles_dollars.csv";
         Scanner tabla = new Scanner(new File(rutaFichero));
 
@@ -58,7 +59,34 @@ class TableTest {
         String[] cabeceras = primeraLinea.split(",");
         listaHeaders.addAll(List.of(cabeceras));
 
+        tabla.close();
+
         assertEquals(tablaMetodo.headers, listaHeaders);
+
+    }
+
+    @Test
+    void recuperarContenidoFilasTable() throws FileNotFoundException {
+        String rutaFichero = "archivos"+ File.separator+"miles_dollars.csv";
+        Scanner tabla = new Scanner(new File(rutaFichero));
+
+        Table tablaMetodo = CSV.readTable(rutaFichero);
+        int contador = 0;
+
+        while (tabla.hasNextLine()){
+            String linea = tabla.nextLine();
+            List<Double> almacenLinea = new ArrayList<>();
+            if (contador >= 1){
+                for (String dato : List.of(linea.split(","))){
+                    almacenLinea.add(Double.valueOf(dato));
+                }
+                Row fila = tablaMetodo.rows.get(contador-1);
+                assertEquals(almacenLinea, fila.getData());
+            }
+
+            contador++;
+        }
+        tabla.close();
 
     }
 

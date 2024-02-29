@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -13,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class TableWithLabelsTest {
 
     @Test
-    void numeroFilaTableWithLabels() throws FileNotFoundException {
+    void numFilaTableWithLabels() throws FileNotFoundException {
         String rutaFichero = "archivos"+ File.separator+"iris.csv";
         Scanner tabla = new Scanner(new File(rutaFichero));
         int contadorfilas = 0;
@@ -29,7 +30,7 @@ class TableWithLabelsTest {
     }
 
     @Test
-    void columnasTableWithLabelsTest() throws FileNotFoundException {
+    void columnasTableWithLabels() throws FileNotFoundException {
         String rutaFichero = "archivos"+ File.separator+"iris.csv";
         Scanner tabla = new Scanner(new File(rutaFichero));
 
@@ -45,7 +46,7 @@ class TableWithLabelsTest {
     }
 
     @Test
-    void headersTableWithLabelsTest() throws FileNotFoundException {
+    void headersTableWithLabels() throws FileNotFoundException {
         String rutaFichero = "archivos"+ File.separator+"iris.csv";
         Scanner tabla = new Scanner(new File(rutaFichero));
 
@@ -57,15 +58,17 @@ class TableWithLabelsTest {
         String[] cabeceras = primeraLinea.split(",");
         listaHeaders.addAll(List.of(cabeceras));
 
+        tabla.close();
+
         assertEquals(tablaMetodo.headers, listaHeaders);
 
     }
     @Test
-    void numeroFilasConLabels() throws FileNotFoundException {
+    void numFilasAsignadaTableWithLabels() throws FileNotFoundException {
         String rutaFichero = "archivos"+ File.separator+"iris.csv";
         Scanner tabla = new Scanner(new File(rutaFichero));
         String label = "";
-        String[] almacen;
+        String[] almacenLinea;
         int contador = 0;
         int numLinea = 0;
 
@@ -73,17 +76,16 @@ class TableWithLabelsTest {
 
         while (tabla.hasNextLine()){
             String linea = tabla.nextLine();
-            almacen = linea.split(",");
+            almacenLinea = linea.split(",");
             if (contador == 1){
-                label = almacen[almacen.length-1];
+                label = almacenLinea[almacenLinea.length-1];
                 assertEquals(tablaMetodo.labelsToIndex.get(label), numLinea);
 
-            } else if (contador > 1){
-                if (!label.equals(almacen[almacen.length-1])){
-                    numLinea++;
-                    label = almacen[almacen.length-1];
-                    assertEquals(tablaMetodo.labelsToIndex.get(label), numLinea);
-                }
+            } else if (contador > 1 && !label.equals(almacenLinea[almacenLinea.length-1]) ){
+                numLinea++;
+                label = almacenLinea[almacenLinea.length-1];
+                assertEquals(tablaMetodo.labelsToIndex.get(label), numLinea);
+
             }
             contador++;
 
@@ -92,21 +94,23 @@ class TableWithLabelsTest {
     }
 
     @Test
-    void copararContenidoFilas() throws FileNotFoundException {
+    void recuperarContenidoFilasTableWithLabels() throws FileNotFoundException {
         String rutaFichero = "archivos"+ File.separator+"iris.csv";
         Scanner tabla = new Scanner(new File(rutaFichero));
         TableWithLabels tablaMetodo = CSV.readTableWithLabel(rutaFichero);
-        String[] almacen;
+
         int contador = 0;
-        String label = "";
 
         while (tabla.hasNextLine()){
             String linea = tabla.nextLine();
+            List<Double> almacenLinea = new ArrayList<>();
+            List<String> lineaAux = Arrays.asList(linea.split(","));
             if (contador >= 1){
-                almacen = linea.split(",");
-                label = almacen[almacen.length-1];
-                RowWithLabel fila = tablaMetodo.rows.get(contador);
-                assertEquals(almacen, fila.data);
+                for (int i = 0; i < lineaAux.size()-1 ; i++){
+                    almacenLinea.add(Double.valueOf(lineaAux.get(i)));
+                }
+                Row fila = tablaMetodo.rows.get(contador-1);
+                assertEquals(almacenLinea, fila.getData());
             }
             contador++;
         }
