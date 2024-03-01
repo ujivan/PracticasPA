@@ -13,18 +13,14 @@ public class TableWithLabels extends Table{
     int num =  0;
     public List<RowWithLabel> rows = new ArrayList<>();
 
+    public void addRowLabel(RowWithLabel row) {
+        rows.add(row);
+    }
+
+
 
     public RowWithLabel getRowAt(int n) {
         return (RowWithLabel) super.getRowAt(n);
-    }
-
-    public int addRowLabel(String label) {
-        if (labelsToIndex.containsKey(label)){
-            return labelsToIndex.get(label);
-        }
-        int index = labelsToIndex.size() + 1;
-        labelsToIndex.put(label, index);
-        return index;
     }
 
     public int search(String label){
