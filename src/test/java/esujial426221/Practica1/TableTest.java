@@ -29,6 +29,8 @@ class TableTest {
         assertEquals(tablaMetodo.rows.size()+1, contadorfilas);
 
 
+
+
     }
     @Test
     void columnasTable() throws FileNotFoundException {
@@ -60,7 +62,6 @@ class TableTest {
         listaHeaders.addAll(List.of(cabeceras));
 
         tabla.close();
-
         assertEquals(tablaMetodo.headers, listaHeaders);
 
     }

@@ -56,10 +56,10 @@ class TableWithLabelsTest {
         String primeraLinea = tabla.nextLine();
 
         String[] cabeceras = primeraLinea.split(",");
+        //almacenamos la primera linea de la tabla la variabe listaHeeaders para posteriormente compararla
         listaHeaders.addAll(List.of(cabeceras));
 
         tabla.close();
-
         assertEquals(tablaMetodo.headers, listaHeaders);
 
     }
@@ -78,10 +78,12 @@ class TableWithLabelsTest {
             String linea = tabla.nextLine();
             almacenLinea = linea.split(",");
             if (contador == 1){
+                // si nos encontramos en la primera linea, almacenamos la etiqueta, y la comparamos
                 label = almacenLinea[almacenLinea.length-1];
                 assertEquals(tablaMetodo.labelsToIndex.get(label), numLinea);
 
             } else if (contador > 1 && !label.equals(almacenLinea[almacenLinea.length-1]) ){
+                // si la linea mayor que 1, y se cambia la etiqueta; almacenamos la nueva etqueta y la comparamos
                 numLinea++;
                 label = almacenLinea[almacenLinea.length-1];
                 assertEquals(tablaMetodo.labelsToIndex.get(label), numLinea);
@@ -105,6 +107,7 @@ class TableWithLabelsTest {
             String linea = tabla.nextLine();
             List<Double> almacenLinea = new ArrayList<>();
             List<String> lineaAux = Arrays.asList(linea.split(","));
+            // Almacenamos cada dato de cada linea en almacenLinea, exceptuando la primera linea
             if (contador >= 1){
                 for (int i = 0; i < lineaAux.size()-1 ; i++){
                     almacenLinea.add(Double.valueOf(lineaAux.get(i)));
