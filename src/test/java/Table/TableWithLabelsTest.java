@@ -1,4 +1,4 @@
-package esujial426221.Practica1;
+package Table;
 
 import org.junit.jupiter.api.Test;
 

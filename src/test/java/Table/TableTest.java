@@ -1,11 +1,10 @@
-package esujial426221.Practica1;
+package Table;
 
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 

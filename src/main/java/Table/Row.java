@@ -1,4 +1,4 @@
-package esujial426221.Practica1;
+package Table;
 
 import java.util.ArrayList;
 import java.util.List;

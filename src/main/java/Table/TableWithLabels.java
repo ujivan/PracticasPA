@@ -1,6 +1,5 @@
-package esujial426221.Practica1;
+package Table;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

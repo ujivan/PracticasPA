@@ -1,11 +1,13 @@
-package esujial426221.Practica1;
+package AprendizajeAutomatico;
 
+import AprendizajeAutomatico.KNN;
+import Table.CSV;
+import Table.TableWithLabels;
 import org.junit.jupiter.api.Test;
 import java.io.FileNotFoundException;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
+import Aritmetica.CalculoDistancias;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -27,15 +29,15 @@ class KNNTest {
         List<Double> ej7 = List.of();
         List<Double> ej8 = List.of(5.2, 7.4);
         List<Double> ej9 = List.of();
-        assertEquals(4.974, knn.metricaEuclidiana(ej1, ej2), 0.001);
-        assertEquals(3.577, knn.metricaEuclidiana(ej3, ej8), 0.001);
-        assertEquals(10.786, knn.metricaEuclidiana(ej4, ej5), 0.001);
-        assertThrows(IllegalArgumentException.class, ()-> knn.metricaEuclidiana(ej3, ej4));
-        assertThrows(IllegalArgumentException.class, ()-> knn.metricaEuclidiana(ej1, ej7));
-        assertThrows(IllegalArgumentException.class, ()-> knn.metricaEuclidiana(ej2, ej6));
-        assertThrows(IllegalArgumentException.class, ()-> knn.metricaEuclidiana(ej8, ej2));
-        assertThrows(IllegalArgumentException.class, ()-> knn.metricaEuclidiana(ej7, ej6));
-        assertThrows(IllegalArgumentException.class, ()-> knn.metricaEuclidiana(ej7, ej9));
+        assertEquals(4.974, CalculoDistancias.metricaEuclidiana(ej1, ej2), 0.001);
+        assertEquals(3.577, CalculoDistancias.metricaEuclidiana(ej3, ej8), 0.001);
+        assertEquals(10.786, CalculoDistancias.metricaEuclidiana(ej4, ej5), 0.001);
+        assertThrows(IllegalArgumentException.class, ()-> CalculoDistancias.metricaEuclidiana(ej3, ej4));
+        assertThrows(IllegalArgumentException.class, ()-> CalculoDistancias.metricaEuclidiana(ej1, ej7));
+        assertThrows(IllegalArgumentException.class, ()-> CalculoDistancias.metricaEuclidiana(ej2, ej6));
+        assertThrows(IllegalArgumentException.class, ()-> CalculoDistancias.metricaEuclidiana(ej8, ej2));
+        assertThrows(IllegalArgumentException.class, ()-> CalculoDistancias.metricaEuclidiana(ej7, ej6));
+        assertThrows(IllegalArgumentException.class, ()-> CalculoDistancias.metricaEuclidiana(ej7, ej9));
 
     }
 
