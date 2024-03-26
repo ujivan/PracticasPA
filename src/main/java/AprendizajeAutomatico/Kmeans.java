@@ -13,7 +13,8 @@ public class Kmeans {
     int numIterations;
     long seed;
 
-    HashMap<Row, Integer> asignacionClusters = new HashMap<>();
+    HashMap<Integer, List<Row>> asignacionClusters = new HashMap<>();
+    List<List<Double>> clusters = new ArrayList<>(numClusters);
 
 
 
@@ -23,34 +24,73 @@ public class Kmeans {
         this.seed = seed;
     }
     public void train(Table datos) {
-        List<List<Double>> clusters = new ArrayList<>(numClusters);
+
+        Random random = new Random(seed);
 
         for (int i = 0; i < numClusters; i++) {
-            Random random = new Random(seed);
-            Row columnaAleatoia = datos.getRowAt(random.nextInt(datos.rows.size()));
-            clusters.add(columnaAleatoia.getData());
+            Row filaAleatoia = datos.getRowAt(random.nextInt(datos.rows.size()));
+            clusters.add(filaAleatoia.getData());
         }
         for (int i = 0; i < numIterations; i++){
-            double minDistancia = Double.MAX_VALUE;
+            asignacionClusters.clear();
+
             for (Row row : datos.rows){
-                int numRespresentante = 0;
+                double minDistancia = Double.MAX_VALUE;
+                int numRespresentante = -1;
                 for (int j = 0; j < numClusters; j++){
                     double distancia = CalculoDistancias.metricaEuclidiana(row.getData(), clusters.get(j));
                     if (distancia < minDistancia) {
                         minDistancia = distancia;
-                        numRespresentante = j;
+                        numRespresentante = j + 1;
                     }
                 }
-                asignacionClusters.put(row, numRespresentante);
-
-
-
-
+                if (!asignacionClusters.containsKey(numRespresentante)) {
+                    asignacionClusters.put(numRespresentante, new ArrayList<>());
+                }
+                asignacionClusters.get(numRespresentante).add(row);
             }
-
+            for (int cluster = 0; cluster < numClusters; cluster++) {
+                List<Row> puntosAsignados = asignacionClusters.getOrDefault(cluster, new ArrayList<>());
+                if (!puntosAsignados.isEmpty()) {
+                    List<Double> nuevoCentroide = calcularCentroide(puntosAsignados);
+                    clusters.set(cluster, nuevoCentroide);
+                }
+            }
         }
-
     }
 
+    private List<Double> calcularCentroide(List<Row> puntos) {
+        int dimension = puntos.get(0).getData().size();
+        List<Double> centroide = new ArrayList<>(dimension);
+
+        for (int i = 0; i < dimension; i++) {
+            centroide.add(0.0);
+        }
+        for (Row punto : puntos) {
+            List<Double> coordenadas = punto.getData();
+            for (int i = 0; i < dimension; i++) {
+                centroide.set(i, centroide.get(i) + coordenadas.get(i));
+            }
+        }
+        for (int i = 0; i < dimension; i++) {
+            centroide.set(i, centroide.get(i) / puntos.size());
+        }
+
+        return centroide;
+    }
+
+    public Integer estimate(List<Double> dato) {
+        double minDistancia = Double.MAX_VALUE;
+        int numRespresentante = -1;
+        for (int i = 0; i < numClusters; i++) {
+            double distancia = CalculoDistancias.metricaEuclidiana(dato, clusters.get(i));
+            if (distancia < minDistancia) {
+                minDistancia = distancia;
+                numRespresentante = i + 1;
+            }
+        }
+        return numRespresentante;
+
+    }
 
 }

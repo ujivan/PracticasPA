@@ -13,13 +13,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class KNNTest {
 
-    public void addDouble (List<Double> lista) {
-
-    }
-
     @Test
     void pruebaMetricaEuclidiana() {
-        KNN knn = new KNN();
         List<Double> ej1 = List.of(2.3, 4.5, 3.8);
         List<Double> ej2 = List.of(6.8, 4.2, 1.7);
         List<Double> ej3 = List.of(6.8, 4.2);
