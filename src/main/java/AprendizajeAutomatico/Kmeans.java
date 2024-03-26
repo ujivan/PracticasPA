@@ -1,4 +1,6 @@
 package AprendizajeAutomatico;
+import Aritmetica.Algorithm;
+import Excepciones.KmeansExceptionGruposMayorDatos;
 import Table.*;
 import Aritmetica.CalculoDistancias;
 
@@ -7,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
-public class Kmeans {
+public class Kmeans implements Algorithm<Table, Integer, List<Double>> {
 
     int numClusters;
     int numIterations;
@@ -23,7 +25,12 @@ public class Kmeans {
         this.numIterations = numIterations;
         this.seed = seed;
     }
-    public void train(Table datos) {
+    @Override
+    public void train(Table datos) throws KmeansExceptionGruposMayorDatos {
+
+        if (numClusters > datos.rows.size()) {
+            throw new KmeansExceptionGruposMayorDatos(" El número de grupos es mayor que el número de datos");
+        }
 
         Random random = new Random(seed);
 
@@ -79,6 +86,7 @@ public class Kmeans {
         return centroide;
     }
 
+    @Override
     public Integer estimate(List<Double> dato) {
         double minDistancia = Double.MAX_VALUE;
         int numRespresentante = -1;

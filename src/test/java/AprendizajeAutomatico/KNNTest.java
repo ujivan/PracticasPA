@@ -1,6 +1,5 @@
 package AprendizajeAutomatico;
 
-import AprendizajeAutomatico.KNN;
 import Table.CSV;
 import Table.TableWithLabels;
 import org.junit.jupiter.api.Test;

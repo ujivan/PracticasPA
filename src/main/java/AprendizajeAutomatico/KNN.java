@@ -2,17 +2,20 @@ package AprendizajeAutomatico;
 
 import Table.Row;
 import Table.RowWithLabel;
+import Table.Table;
 import Table.TableWithLabels;
 
 import java.util.List;
 import Aritmetica.*;
 
-public class KNN {
+public class KNN implements Algorithm<TableWithLabels, Integer, List<Double>> {
     private TableWithLabels tdata;
+    @Override
     public void train(TableWithLabels data) {
         this.tdata = data;
     }
 
+    @Override
     public Integer estimate(List<Double> sample) {
         if (sample.isEmpty() || sample.size() != 4) {
             throw new IllegalArgumentException("La lista tiene que tener un tamaño de 4");
