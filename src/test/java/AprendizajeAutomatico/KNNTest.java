@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.File;
 import java.util.List;
 import Aritmetica.CalculoDistancias;
+import Aritmetica.Algorithm;
 
 import static org.junit.jupiter.api.Assertions.*;
 
