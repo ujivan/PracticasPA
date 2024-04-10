@@ -44,18 +44,18 @@ public class Kmeans implements Algorithm<Table, Integer, List<Double>> {
 
             for (Row row : datos.rows){
                 double minDistancia = Double.MAX_VALUE;
-                int numRespresentante = -1;
+                int numRepresentante = -1;
                 for (int j = 0; j < numClusters; j++){
                     double distancia = CalculoDistancias.metricaEuclidiana(row.getData(), clusters.get(j));
                     if (distancia < minDistancia) {
                         minDistancia = distancia;
-                        numRespresentante = j + 1;
+                        numRepresentante = j + 1;
                     }
                 }
-                if (!asignacionClusters.containsKey(numRespresentante)) {
-                    asignacionClusters.put(numRespresentante, new ArrayList<>());
+                if (!asignacionClusters.containsKey(numRepresentante)) {
+                    asignacionClusters.put(numRepresentante, new ArrayList<>());
                 }
-                asignacionClusters.get(numRespresentante).add(row);
+                asignacionClusters.get(numRepresentante).add(row);
             }
             for (int cluster = 0; cluster < numClusters; cluster++) {
                 List<Row> puntosAsignados = asignacionClusters.getOrDefault(cluster, new ArrayList<>());

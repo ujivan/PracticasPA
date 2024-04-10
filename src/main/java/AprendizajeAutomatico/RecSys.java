@@ -29,6 +29,7 @@ public class RecSys{
         if (testData == null || testItemNames == null) {
             throw new IllegalArgumentException("Los datos de prueba o los nombres de los elementos son nulos");
         }
+        mapaEstimaciones.clear();
         int contadorLinea = 0;
         for (Row row : testData.rows) {
             Integer numEst = (Integer) algorithm.estimate(row.data);
