@@ -6,6 +6,7 @@ import Excepciones.NameNotFoundedException;
 import Table.Table;
 import Table.Row;
 
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,35 +26,38 @@ public class RecSys{
     }
 
     public void run(Table testData, List<String> testItemNames) {
+        if (testData == null || testItemNames == null) {
+            throw new IllegalArgumentException("Los datos de prueba o los nombres de los elementos son nulos");
+        }
         int contadorLinea = 0;
         for (Row row : testData.rows) {
             Integer numEst = (Integer) algorithm.estimate(row.data);
             mapaEstimaciones.put(testItemNames.get(contadorLinea), numEst);
             contadorLinea++;
         }
-
     }
 
-    public List<String> recommend (String nameLikedItem, int numRecommendations) throws NameNotFoundedException {
-        if (!mapaEstimaciones.containsKey(nameLikedItem)) {
-            throw new NameNotFoundedException("El nombre no se encuentra en la lista testItemNames");
+    public List<String> recommend(String nameLikedItem, int numRecommendations) throws NameNotFoundedException {
+        if (mapaEstimaciones.isEmpty() || !mapaEstimaciones.containsKey(nameLikedItem)) {
+            throw new NameNotFoundedException("El nombre no se encuentra en la lista testItemNames o el mapa de estimaciones está vacío.");
         }
         List<String> recomendaciones = new ArrayList<>();
-        int estimacion = mapaEstimaciones.get(nameLikedItem);
-        for (Map.Entry<String, Integer> entry : mapaEstimaciones.entrySet()) {
-            if (entry.getValue() == estimacion && ! entry.getKey().equals(nameLikedItem)) {
-                recomendaciones.add(entry.getKey());
-                if (recomendaciones.size() == numRecommendations) {
-                    break;
+        Integer estimacion = mapaEstimaciones.get(nameLikedItem);
+        if (estimacion != null) {
+            for (Map.Entry<String, Integer> entry : mapaEstimaciones.entrySet()) {
+                Integer value = entry.getValue();
+                if (value != null && value.intValue() == estimacion.intValue() && !entry.getKey().equals(nameLikedItem)) {
+                    recomendaciones.add(entry.getKey());
+                    if (recomendaciones.size() == numRecommendations) {
+                        break;
+                    }
                 }
             }
-
+        } else {
+            throw new NullPointerException("La estimación para el elemento dado es nula.");
         }
         return recomendaciones;
     }
-
-
-
 
 }
 

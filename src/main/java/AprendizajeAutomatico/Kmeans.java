@@ -16,7 +16,7 @@ public class Kmeans implements Algorithm<Table, Integer, List<Double>> {
     long seed;
 
     HashMap<Integer, List<Row>> asignacionClusters = new HashMap<>();
-    List<List<Double>> clusters = new ArrayList<>(numClusters);
+    List<List<Double>> clusters;
 
 
 
@@ -24,6 +24,7 @@ public class Kmeans implements Algorithm<Table, Integer, List<Double>> {
         this.numClusters = numClusters;
         this.numIterations = numIterations;
         this.seed = seed;
+        this.clusters = new ArrayList<>(numClusters);
     }
     @Override
     public void train(Table datos) throws KmeansExceptionGruposMayorDatos {
@@ -98,7 +99,6 @@ public class Kmeans implements Algorithm<Table, Integer, List<Double>> {
             }
         }
         return numRespresentante;
-
     }
 
 }
