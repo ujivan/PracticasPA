@@ -4,27 +4,23 @@ import Excepciones.KmeansExceptionGruposMayorDatos;
 import Table.*;
 import Aritmetica.CalculoDistancias;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class Kmeans implements Algorithm<Table, Integer, List<Double>> {
 
-    int numClusters;
-    int numIterations;
-    long seed;
+    private int numClusters; // Número de grupos
+    private int numIterations; // Número de iteraciones
+    private long seed; // Semilla para generación de números aleatorios
+    private List<List<Double>> clusters; // Lista de centroides
 
-    HashMap<Integer, List<Row>> asignacionClusters = new HashMap<>();
-    List<List<Double>> clusters;
-
+    HashMap<Row, Integer> asignacionClusters = new HashMap<>();
 
 
     public Kmeans(int numClusters, int numIterations, long seed) {
         this.numClusters = numClusters;
         this.numIterations = numIterations;
         this.seed = seed;
-        this.clusters = new ArrayList<>(numClusters);
+        this.clusters = new ArrayList<>();
     }
     @Override
     public void train(Table datos) throws KmeansExceptionGruposMayorDatos {
@@ -36,15 +32,16 @@ public class Kmeans implements Algorithm<Table, Integer, List<Double>> {
         Random random = new Random(seed);
 
         for (int i = 0; i < numClusters; i++) {
-            Row filaAleatoia = datos.getRowAt(random.nextInt(datos.rows.size()));
-            clusters.add(filaAleatoia.getData());
+            Row filaAleatoria = datos.getRowAt(random.nextInt(datos.rows.size()));
+            clusters.add(filaAleatoria.getData());
         }
+
         for (int i = 0; i < numIterations; i++){
             asignacionClusters.clear();
 
             for (Row row : datos.rows){
                 double minDistancia = Double.MAX_VALUE;
-                int numRepresentante = -1;
+                int numRepresentante = 0;
                 for (int j = 0; j < numClusters; j++){
                     double distancia = CalculoDistancias.metricaEuclidiana(row.getData(), clusters.get(j));
                     if (distancia < minDistancia) {
@@ -52,23 +49,39 @@ public class Kmeans implements Algorithm<Table, Integer, List<Double>> {
                         numRepresentante = j + 1;
                     }
                 }
-                if (!asignacionClusters.containsKey(numRepresentante)) {
-                    asignacionClusters.put(numRepresentante, new ArrayList<>());
+                System.out.println(row.data + "     " + numRepresentante + "    Centr:" + clusters);
+                if (!asignacionClusters.containsKey(row)){
+                    asignacionClusters.put(row, numRepresentante);
                 }
-                asignacionClusters.get(numRepresentante).add(row);
+
+
             }
+
             for (int cluster = 0; cluster < numClusters; cluster++) {
-                List<Row> puntosAsignados = asignacionClusters.getOrDefault(cluster, new ArrayList<>());
-                if (!puntosAsignados.isEmpty()) {
-                    List<Double> nuevoCentroide = calcularCentroide(puntosAsignados);
-                    clusters.set(cluster, nuevoCentroide);
-                }
+                List<Row> puntosAsignados = buscarGruposPuntos(cluster +1);
+                List<Double> nuevoCentroide = calcularCentroide(puntosAsignados);
+                clusters.set(cluster, nuevoCentroide);
+
+
             }
+
         }
     }
+    private List<Row> buscarGruposPuntos(Integer cluster){
+        List<Row> grupo = new ArrayList<Row>();
+        for (Map.Entry<Row, Integer> entry : asignacionClusters.entrySet()) {
+
+            if (entry.getValue() == cluster){
+                System.out.println("Cuales entran: "+ entry.getKey().data + " " + entry.getValue());
+                grupo.add(entry.getKey());
+            }
+        }
+        return grupo;
+    }
+
 
     private List<Double> calcularCentroide(List<Row> puntos) {
-        int dimension = puntos.get(0).getData().size();
+        int dimension = puntos.get(1).getData().size();
         List<Double> centroide = new ArrayList<>(dimension);
 
         for (int i = 0; i < dimension; i++) {
@@ -87,6 +100,7 @@ public class Kmeans implements Algorithm<Table, Integer, List<Double>> {
         return centroide;
     }
 
+
     @Override
     public Integer estimate(List<Double> dato) {
         double minDistancia = Double.MAX_VALUE;
@@ -100,5 +114,8 @@ public class Kmeans implements Algorithm<Table, Integer, List<Double>> {
         }
         return numRespresentante;
     }
+
+
+
 
 }

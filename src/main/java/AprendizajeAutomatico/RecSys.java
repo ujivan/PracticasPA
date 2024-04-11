@@ -39,7 +39,7 @@ public class RecSys{
     }
 
     public List<String> recommend(String nameLikedItem, int numRecommendations) throws NameNotFoundedException {
-        if (mapaEstimaciones.isEmpty() || !mapaEstimaciones.containsKey(nameLikedItem)) {
+        if (!mapaEstimaciones.containsKey(nameLikedItem)) {
             throw new NameNotFoundedException("El nombre no se encuentra en la lista testItemNames o el mapa de estimaciones está vacío.");
         }
         List<String> recomendaciones = new ArrayList<>();
