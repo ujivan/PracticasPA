@@ -49,7 +49,7 @@ public class Kmeans implements Algorithm<Table, Integer, List<Double>> {
                         numRepresentante = j + 1;
                     }
                 }
-                System.out.println(row.data + "     " + numRepresentante + "    Centr:" + clusters);
+
                 if (!asignacionClusters.containsKey(row)){
                     asignacionClusters.put(row, numRepresentante);
                 }
@@ -72,7 +72,7 @@ public class Kmeans implements Algorithm<Table, Integer, List<Double>> {
         for (Map.Entry<Row, Integer> entry : asignacionClusters.entrySet()) {
 
             if (entry.getValue() == cluster){
-                System.out.println("Cuales entran: "+ entry.getKey().data + " " + entry.getValue());
+
                 grupo.add(entry.getKey());
             }
         }

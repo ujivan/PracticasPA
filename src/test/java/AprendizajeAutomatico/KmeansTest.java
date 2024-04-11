@@ -14,7 +14,7 @@ class KmeansTest {
     @Test
     void estimate() throws KmeansExceptionGruposMayorDatos {
 
-        Kmeans kmeans = new Kmeans(2, 10, 30);
+        Kmeans kmeans = new Kmeans(2, 110, 30);
 
         Table table = new Table();
         List<Double> ej1 = List.of(1.0, 1.0, 1.0);
