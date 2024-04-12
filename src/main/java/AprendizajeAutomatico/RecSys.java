@@ -30,15 +30,17 @@ public class RecSys{
             throw new IllegalArgumentException("Los datos de prueba o los nombres de los elementos son nulos");
         }
         mapaEstimaciones.clear();
-        int contadorLinea = 0;
-        for (Row row : testData.rows) {
-            Integer numEst = (Integer) algorithm.estimate(row.data);
-            mapaEstimaciones.put(testItemNames.get(contadorLinea), numEst);
-            contadorLinea++;
+        List<Row> rows = testData.rows;
+        for (int i = 0; i < testData.rows.size(); i++) {
+            Row row = rows.get(i);
+            Integer numEst = (Integer) algorithm.estimate(row.getData());
+            String itemName = testItemNames.get(i);
+            mapaEstimaciones.put(itemName, numEst);
         }
     }
 
     public List<String> recommend(String nameLikedItem, int numRecommendations) throws NameNotFoundedException {
+
         if (!mapaEstimaciones.containsKey(nameLikedItem)) {
             throw new NameNotFoundedException("El nombre no se encuentra en la lista testItemNames o el mapa de estimaciones está vacío.");
         }

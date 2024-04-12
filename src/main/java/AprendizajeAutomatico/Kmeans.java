@@ -15,7 +15,6 @@ public class Kmeans implements Algorithm<Table, Integer, List<Double>> {
 
     HashMap<Row, Integer> asignacionClusters = new HashMap<>();
 
-
     public Kmeans(int numClusters, int numIterations, long seed) {
         this.numClusters = numClusters;
         this.numIterations = numIterations;
@@ -31,8 +30,16 @@ public class Kmeans implements Algorithm<Table, Integer, List<Double>> {
 
         Random random = new Random(seed);
 
+        HashSet<Integer> selectedIndices = new HashSet<>();
+
         for (int i = 0; i < numClusters; i++) {
-            Row filaAleatoria = datos.getRowAt(random.nextInt(datos.rows.size()));
+            int randomIndex;
+            do {
+                randomIndex = random.nextInt(datos.rows.size());
+            } while (selectedIndices.contains(randomIndex));
+
+            selectedIndices.add(randomIndex);
+            Row filaAleatoria = datos.getRowAt(randomIndex);
             clusters.add(filaAleatoria.getData());
         }
 
@@ -67,8 +74,9 @@ public class Kmeans implements Algorithm<Table, Integer, List<Double>> {
 
         }
     }
+
     private List<Row> buscarGruposPuntos(Integer cluster){
-        List<Row> grupo = new ArrayList<Row>();
+        List<Row> grupo = new ArrayList<>();
         for (Map.Entry<Row, Integer> entry : asignacionClusters.entrySet()) {
 
             if (entry.getValue() == cluster){
@@ -81,7 +89,7 @@ public class Kmeans implements Algorithm<Table, Integer, List<Double>> {
 
 
     private List<Double> calcularCentroide(List<Row> puntos) {
-        int dimension = puntos.get(1).getData().size();
+        int dimension = puntos.get(0).getData().size();
         List<Double> centroide = new ArrayList<>(dimension);
 
         for (int i = 0; i < dimension; i++) {
@@ -93,6 +101,7 @@ public class Kmeans implements Algorithm<Table, Integer, List<Double>> {
                 centroide.set(i, centroide.get(i) + coordenadas.get(i));
             }
         }
+
         for (int i = 0; i < dimension; i++) {
             centroide.set(i, centroide.get(i) / puntos.size());
         }
@@ -114,8 +123,5 @@ public class Kmeans implements Algorithm<Table, Integer, List<Double>> {
         }
         return numRespresentante;
     }
-
-
-
 
 }
