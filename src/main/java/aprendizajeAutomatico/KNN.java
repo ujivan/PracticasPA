@@ -1,12 +1,11 @@
-package AprendizajeAutomatico;
+package aprendizajeAutomatico;
 
-import Table.Row;
-import Table.RowWithLabel;
-import Table.Table;
-import Table.TableWithLabels;
+import table.Row;
+import table.RowWithLabel;
+import table.TableWithLabels;
 
 import java.util.List;
-import Aritmetica.*;
+import aritmetica.*;
 
 public class KNN implements Algorithm<TableWithLabels, Integer, List<Double>> {
     private TableWithLabels tdata;

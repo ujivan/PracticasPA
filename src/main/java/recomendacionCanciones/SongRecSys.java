@@ -1,7 +1,9 @@
-package AprendizajeAutomatico;
+package recomendacionCanciones;
 
-import Aritmetica.Algorithm;
-import Table.*;
+import aprendizajeAutomatico.KNN;
+import aprendizajeAutomatico.Kmeans;
+import aritmetica.Algorithm;
+import table.*;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

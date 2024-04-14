@@ -1,8 +1,8 @@
-package AprendizajeAutomatico;
-import Aritmetica.Algorithm;
-import Excepciones.KmeansExceptionGruposMayorDatos;
-import Table.*;
-import Aritmetica.CalculoDistancias;
+package aprendizajeAutomatico;
+import aritmetica.Algorithm;
+import excepciones.KmeansExceptionGruposMayorDatos;
+import table.*;
+import aritmetica.CalculoDistancias;
 
 import java.util.*;
 
@@ -41,6 +41,7 @@ public class Kmeans implements Algorithm<Table, Integer, List<Double>> {
             selectedIndices.add(randomIndex);
             Row filaAleatoria = datos.getRowAt(randomIndex);
             clusters.add(filaAleatoria.getData());
+
         }
 
         for (int i = 0; i < numIterations; i++){
@@ -56,20 +57,15 @@ public class Kmeans implements Algorithm<Table, Integer, List<Double>> {
                         numRepresentante = j + 1;
                     }
                 }
-
                 if (!asignacionClusters.containsKey(row)){
                     asignacionClusters.put(row, numRepresentante);
                 }
 
-
             }
-
             for (int cluster = 0; cluster < numClusters; cluster++) {
                 List<Row> puntosAsignados = buscarGruposPuntos(cluster +1);
                 List<Double> nuevoCentroide = calcularCentroide(puntosAsignados);
                 clusters.set(cluster, nuevoCentroide);
-
-
             }
 
         }

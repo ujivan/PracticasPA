@@ -1,4 +1,4 @@
-package Excepciones;
+package excepciones;
 
 public class KmeansExceptionGruposMayorDatos extends Exception{
     public KmeansExceptionGruposMayorDatos(String mensaje){

@@ -1,4 +1,4 @@
-package Table;
+package table;
 
 import java.util.List;
 

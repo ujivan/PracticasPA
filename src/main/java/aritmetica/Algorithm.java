@@ -1,7 +1,7 @@
-package Aritmetica;
+package aritmetica;
 
-import Excepciones.KmeansExceptionGruposMayorDatos;
-import Table.Table;
+import excepciones.KmeansExceptionGruposMayorDatos;
+import table.Table;
 
 public interface Algorithm <T extends Table, U, V> {
     void train (T dato) throws KmeansExceptionGruposMayorDatos;

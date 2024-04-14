@@ -1,11 +1,10 @@
-package AprendizajeAutomatico;
+package aprendizajeAutomatico;
 
-import Excepciones.KmeansExceptionGruposMayorDatos;
+import excepciones.KmeansExceptionGruposMayorDatos;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-import Table.*;
-import Aritmetica.CalculoDistancias;
+import table.*;
 
 import java.util.List;
 
@@ -26,8 +25,6 @@ class KmeansTest {
         List<Double> ej7 = List.of(156.0, 156.0, 156.0);
         List<Double> ej8 = List.of(154.0, 154.0, 154.0);
         List<Double> ej9 = List.of(78.5,78.5,78.5);
-
-
 
 
         table.addRow(ej1);

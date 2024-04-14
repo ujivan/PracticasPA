@@ -1,13 +1,12 @@
-package AprendizajeAutomatico;
+package aprendizajeAutomatico;
 
-import Table.CSV;
-import Table.TableWithLabels;
+import table.CSV;
+import table.TableWithLabels;
 import org.junit.jupiter.api.Test;
 import java.io.FileNotFoundException;
 import java.io.File;
 import java.util.List;
-import Aritmetica.CalculoDistancias;
-import Aritmetica.Algorithm;
+import aritmetica.CalculoDistancias;
 
 import static org.junit.jupiter.api.Assertions.*;
 

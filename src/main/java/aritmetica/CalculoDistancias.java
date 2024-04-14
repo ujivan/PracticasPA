@@ -1,4 +1,4 @@
-package Aritmetica;
+package aritmetica;
 
 import java.util.List;
 
