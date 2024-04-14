@@ -26,7 +26,6 @@ class KmeansTest {
         List<Double> ej8 = List.of(154.0, 154.0, 154.0);
         List<Double> ej9 = List.of(78.5,78.5,78.5);
 
-
         table.addRow(ej1);
         table.addRow(ej2);
         table.addRow(ej3);
@@ -37,14 +36,12 @@ class KmeansTest {
         table.addRow(ej8);
         table.addRow(ej9);
 
-
         kmeans.train(table);
 
         assertEquals(3, kmeans.estimate(ej7));
         assertEquals(1, kmeans.estimate(ej1));
         assertEquals(2, kmeans.estimate(ej5));
         assertEquals(2, kmeans.estimate(ej9));
-
 
 
     }
