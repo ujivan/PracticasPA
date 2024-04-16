@@ -3,6 +3,7 @@ package recomendacionCanciones;
 import aprendizajeAutomatico.KNN;
 import aprendizajeAutomatico.Kmeans;
 import aritmetica.Algorithm;
+import aritmetica.EuclideanDistance;
 import table.*;
 
 import java.io.BufferedReader;
@@ -29,8 +30,8 @@ class SongRecSys {
 
         // Algorithms
         Map<String, Algorithm> algorithms = new HashMap<>();
-        algorithms.put("knn",new KNN());
-        algorithms.put("kmeans",new Kmeans(15, 200, 4321));
+        algorithms.put("knn",new KNN(new EuclideanDistance()));
+        algorithms.put("kmeans",new Kmeans(15, 200, 4321, new EuclideanDistance()));
 
         // Tables
         Map<String,Table> tables = new HashMap<>();

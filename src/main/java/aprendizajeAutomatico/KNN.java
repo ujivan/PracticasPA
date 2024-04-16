@@ -7,8 +7,17 @@ import table.TableWithLabels;
 import java.util.List;
 import aritmetica.*;
 
-public class KNN implements Algorithm<TableWithLabels, Integer, List<Double>> {
+public class KNN implements Algorithm<TableWithLabels, Integer, List<Double>>, Distance {
     private TableWithLabels tdata;
+    Distance distance;
+
+    public KNN(Distance distance) {
+        this.distance = distance;
+    }
+
+    public double calculateDistance(List<Double> data1, List<Double> data2) {
+        return distance.calculateDistance(data1, data2);
+    }
     @Override
     public void train(TableWithLabels data) {
         this.tdata = data;
@@ -26,7 +35,7 @@ public class KNN implements Algorithm<TableWithLabels, Integer, List<Double>> {
         // Cambiamos de la clase row que necesita el bucle for para cada fila a rowWithLabel para que pueda devolver el numero de la clase
         for (Row row : tdata.rows) {
             RowWithLabel rowWithLabel = (RowWithLabel) row;
-            double distancia = CalculoDistancias.metricaEuclidiana(row.getData(), sample);
+            double distancia = calculateDistance(row.getData(), sample);
             if (distancia < minDistancia) {
                 minDistancia = distancia;
                 nClase = rowWithLabel.getNumberClass();

@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.io.FileNotFoundException;
 import java.io.File;
 import java.util.List;
-import aritmetica.CalculoDistancias;
+import aritmetica.EuclideanDistance;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -14,6 +14,7 @@ class KNNTest {
 
     @Test
     void pruebaMetricaEuclidiana() {
+        KNN knn = new KNN(new EuclideanDistance());
         List<Double> ej1 = List.of(2.3, 4.5, 3.8);
         List<Double> ej2 = List.of(6.8, 4.2, 1.7);
         List<Double> ej3 = List.of(6.8, 4.2);
@@ -23,21 +24,21 @@ class KNNTest {
         List<Double> ej7 = List.of();
         List<Double> ej8 = List.of(5.2, 7.4);
         List<Double> ej9 = List.of();
-        assertEquals(4.974, CalculoDistancias.metricaEuclidiana(ej1, ej2), 0.001);
-        assertEquals(3.577, CalculoDistancias.metricaEuclidiana(ej3, ej8), 0.001);
-        assertEquals(10.786, CalculoDistancias.metricaEuclidiana(ej4, ej5), 0.001);
-        assertThrows(IllegalArgumentException.class, ()-> CalculoDistancias.metricaEuclidiana(ej3, ej4));
-        assertThrows(IllegalArgumentException.class, ()-> CalculoDistancias.metricaEuclidiana(ej1, ej7));
-        assertThrows(IllegalArgumentException.class, ()-> CalculoDistancias.metricaEuclidiana(ej2, ej6));
-        assertThrows(IllegalArgumentException.class, ()-> CalculoDistancias.metricaEuclidiana(ej8, ej2));
-        assertThrows(IllegalArgumentException.class, ()-> CalculoDistancias.metricaEuclidiana(ej7, ej6));
-        assertThrows(IllegalArgumentException.class, ()-> CalculoDistancias.metricaEuclidiana(ej7, ej9));
+        assertEquals(4.974, knn.calculateDistance(ej1, ej2), 0.001);
+        assertEquals(3.577, knn.calculateDistance(ej3, ej8), 0.001);
+        assertEquals(10.786, knn.calculateDistance(ej4, ej5), 0.001);
+        assertThrows(IllegalArgumentException.class, ()-> knn.calculateDistance(ej3, ej4));
+        assertThrows(IllegalArgumentException.class, ()-> knn.calculateDistance(ej1, ej7));
+        assertThrows(IllegalArgumentException.class, ()-> knn.calculateDistance(ej2, ej6));
+        assertThrows(IllegalArgumentException.class, ()-> knn.calculateDistance(ej8, ej2));
+        assertThrows(IllegalArgumentException.class, ()-> knn.calculateDistance(ej7, ej6));
+        assertThrows(IllegalArgumentException.class, ()-> knn.calculateDistance(ej7, ej9));
 
     }
 
     @Test
     void pruebaEstimate() throws FileNotFoundException {
-        KNN knn = new KNN();
+        KNN knn = new KNN(new EuclideanDistance());
 
         String rutaFichero = "archivos"+ File.separator+"iris.csv";
         TableWithLabels tabla = CSV.readTableWithLabel(rutaFichero);

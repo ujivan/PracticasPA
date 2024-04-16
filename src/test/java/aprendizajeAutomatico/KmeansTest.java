@@ -1,5 +1,6 @@
 package aprendizajeAutomatico;
 
+import aritmetica.EuclideanDistance;
 import excepciones.KmeansExceptionGruposMayorDatos;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +14,7 @@ class KmeansTest {
     @Test
     void estimate() throws KmeansExceptionGruposMayorDatos {
 
-        Kmeans kmeans = new Kmeans(3, 20, 190);
+        Kmeans kmeans = new Kmeans(3, 20, 190, new EuclideanDistance());
 
         Table table = new Table();
         List<Double> ej1 = List.of(1.0, 1.0, 1.0);

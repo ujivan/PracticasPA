@@ -2,8 +2,8 @@ package aritmetica;
 
 import java.util.List;
 
-public class CalculoDistancias {
-    public static double metricaEuclidiana(List<Double> data1, List<Double> data2) {
+public class ManhattanDistance implements Distance{
+    public double calculateDistance(List<Double> data1, List<Double> data2) {
         if (data1.size() != data2.size()) {
             throw new IllegalArgumentException("Las dos listas tienen que tener el mismo tamaño");
         }
@@ -14,11 +14,9 @@ public class CalculoDistancias {
 
         double suma = 0.0;
         for (int i = 0; i < data1.size(); i++) {
-            double resta = data1.get(i) - data2.get(i);
-            suma += Math.pow(resta, 2);
+            suma += data1.get(i) - data2.get(i);
         }
 
-        return Math.sqrt(suma);
+        return suma;
     }
-
 }

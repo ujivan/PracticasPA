@@ -1,25 +1,33 @@
 package aprendizajeAutomatico;
 import aritmetica.Algorithm;
+import aritmetica.Distance;
 import excepciones.KmeansExceptionGruposMayorDatos;
 import table.*;
-import aritmetica.CalculoDistancias;
 
 import java.util.*;
 
-public class Kmeans implements Algorithm<Table, Integer, List<Double>> {
+public class Kmeans implements Algorithm<Table, Integer, List<Double>>, Distance{
 
     private int numClusters; // Número de grupos
     private int numIterations; // Número de iteraciones
     private long seed; // Semilla para generación de números aleatorios
     private List<List<Double>> clusters; // Lista de centroides
 
+    Distance distance;
+
     HashMap<Row, Integer> asignacionClusters = new HashMap<>(); // Mapa con filas con su cluster asigando
 
-    public Kmeans(int numClusters, int numIterations, long seed) {
+    public Kmeans(int numClusters, int numIterations, long seed, Distance distance) {
         this.numClusters = numClusters;
         this.numIterations = numIterations;
         this.seed = seed;
         this.clusters = new ArrayList<>();
+        this.distance = distance;
+
+    }
+
+    public double calculateDistance(List<Double> data1, List<Double> data2) {
+        return distance.calculateDistance(data1, data2);
     }
     @Override
     public void train(Table datos) throws KmeansExceptionGruposMayorDatos {
@@ -48,7 +56,7 @@ public class Kmeans implements Algorithm<Table, Integer, List<Double>> {
         double minDistancia = Double.MAX_VALUE;
         int numRepresentante = 0;
         for (int j = 0; j < numClusters; j++){
-            double distancia = CalculoDistancias.metricaEuclidiana(row.getData(), clusters.get(j));
+            double distancia = calculateDistance(row.getData(), clusters.get(j));
             if (distancia < minDistancia) {
                 minDistancia = distancia;
                 numRepresentante = j + 1;
@@ -115,7 +123,7 @@ public class Kmeans implements Algorithm<Table, Integer, List<Double>> {
         double minDistancia = Double.MAX_VALUE;
         int numRespresentante = -1;
         for (int i = 0; i < numClusters; i++) {
-            double distancia = CalculoDistancias.metricaEuclidiana(dato, clusters.get(i));
+            double distancia = calculateDistance(dato, clusters.get(i));
             if (distancia < minDistancia) {
                 minDistancia = distancia;
                 numRespresentante = i + 1;
