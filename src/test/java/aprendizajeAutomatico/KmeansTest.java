@@ -25,6 +25,8 @@ class KmeansTest {
         List<Double> ej7 = List.of(156.0, 156.0, 156.0);
         List<Double> ej8 = List.of(154.0, 154.0, 154.0);
         List<Double> ej9 = List.of(78.5,78.5,78.5);
+        List<Double> ej10 = List.of(60.5,60.5);
+        List<Double> ej11 = List.of(120.0, 120.0, 120.0, 120.0);
 
         table.addRow(ej1);
         table.addRow(ej2);
@@ -42,7 +44,6 @@ class KmeansTest {
         assertEquals(1, kmeans.estimate(ej1));
         assertEquals(2, kmeans.estimate(ej5));
         assertEquals(2, kmeans.estimate(ej9));
-
-
+        assertThrows(IllegalArgumentException.class, ()-> kmeans.estimate(ej10));
     }
 }

@@ -110,7 +110,8 @@ public class Kmeans implements Algorithm<Table, Integer, List<Double>> {
 
 
     @Override
-    public Integer estimate(List<Double> dato) {
+    public Integer estimate(List<Double> dato){
+
         double minDistancia = Double.MAX_VALUE;
         int numRespresentante = -1;
         for (int i = 0; i < numClusters; i++) {
