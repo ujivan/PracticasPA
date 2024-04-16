@@ -14,7 +14,7 @@ public class ManhattanDistance implements Distance{
 
         double suma = 0.0;
         for (int i = 0; i < data1.size(); i++) {
-            suma += data1.get(i) - data2.get(i);
+            suma += Math.abs(data1.get(i) - data2.get(i));
         }
 
         return suma;

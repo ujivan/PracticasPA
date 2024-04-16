@@ -1,6 +1,7 @@
 package aprendizajeAutomatico;
 
 import aritmetica.EuclideanDistance;
+import aritmetica.ManhattanDistance;
 import excepciones.KmeansExceptionGruposMayorDatos;
 import org.junit.jupiter.api.Test;
 
@@ -12,7 +13,7 @@ import java.util.List;
 class KmeansTest {
 
     @Test
-    void estimate() throws KmeansExceptionGruposMayorDatos {
+    void estimateEuclidean() throws KmeansExceptionGruposMayorDatos {
 
         Kmeans kmeans = new Kmeans(3, 20, 190, new EuclideanDistance());
 
@@ -46,5 +47,40 @@ class KmeansTest {
         assertEquals(2, kmeans.estimate(ej5));
         assertEquals(2, kmeans.estimate(ej9));
         assertThrows(IllegalArgumentException.class, ()-> kmeans.estimate(ej10));
+    }
+    @Test
+    void estimateManhattan() throws KmeansExceptionGruposMayorDatos {
+
+        Kmeans kmeans = new Kmeans(2, 20, 44, new ManhattanDistance());
+
+        Table table = new Table();
+
+        List<Double> ej1 = List.of(1.8, 1.8, 1.8);
+        List<Double> ej2 = List.of(2.7, 2.7, 2.7);
+        List<Double> ej3 = List.of(2.8, 2.8, 2.8);
+        List<Double> ej4 = List.of(1.9, 1.9, 1.9);
+        List<Double> ej5 = List.of(132.0, 132.0, 132.0);
+        List<Double> ej6 = List.of(132.5, 132.5, 132.5);
+        List<Double> ej7 = List.of(142.5, 142.5, 142.5);
+        List<Double> ej8 = List.of(140.0, 140.0, 140.0);
+        List<Double> ej9 = List.of(140.0, 140.0);
+
+        table.addRow(ej1);
+        table.addRow(ej2);
+        table.addRow(ej3);
+        table.addRow(ej4);
+        table.addRow(ej5);
+        table.addRow(ej6);
+        table.addRow(ej7);
+        table.addRow(ej8);
+
+        kmeans.train(table);
+
+        assertEquals(1, kmeans.estimate(ej1));
+        assertEquals(2, kmeans.estimate(ej5));
+        assertEquals(2, kmeans.estimate(List.of(180.0, 180.0, 180.0)));
+        assertThrows(IllegalArgumentException.class, ()-> kmeans.estimate(ej9));
+
+
     }
 }
