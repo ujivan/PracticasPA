@@ -1,7 +1,7 @@
 package recomendacionCanciones;
 
-import aritmetica.Algorithm;
-import excepciones.KmeansExceptionGruposMayorDatos;
+import aprendizajeAutomatico.Algorithm;
+import aprendizajeAutomatico.KmeansExceptionGruposMayorDatos;
 import table.Table;
 import table.Row;
 import java.util.*;

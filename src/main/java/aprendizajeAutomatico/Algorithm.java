@@ -1,6 +1,5 @@
-package aritmetica;
+package aprendizajeAutomatico;
 
-import excepciones.KmeansExceptionGruposMayorDatos;
 import table.Table;
 
 public interface Algorithm <T extends Table, U, V> {

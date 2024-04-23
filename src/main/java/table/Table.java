@@ -13,12 +13,12 @@ public class Table{
     public List<String> getHeaders(Table datos){
         return headers;
     }
-    public void addRow(List<Double> linea) {
-        rows.add(new Row(linea));
+    public void addRow(Row row) {
+        rows.add(row);
     }
 
     public void addHeaders(List<String> cabeceras){
-        headers = cabeceras;
+        this.headers = cabeceras;
     }
 
     public Integer size(Table datos){

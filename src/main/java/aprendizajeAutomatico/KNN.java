@@ -1,6 +1,5 @@
 package aprendizajeAutomatico;
 
-import table.Row;
 import table.RowWithLabel;
 import table.TableWithLabels;
 
@@ -25,24 +24,21 @@ public class KNN implements Algorithm<TableWithLabels, Integer, List<Double>>, D
 
     @Override
     public Integer estimate(List<Double> sample) {
-        if (sample.isEmpty() || sample.size() != 4) {
-            throw new IllegalArgumentException("La lista tiene que tener un tamaño de 4");
+        if (sample.isEmpty() ) {
+            throw new IllegalArgumentException();
         }
         // Le damos a minDistancia el máximo valor que puede alcanzar un double para que así la primera distancia que compare sea siempre menor
         double minDistancia = Double.MAX_VALUE;
         Integer nClase = null;
 
-        // Cambiamos de la clase row que necesita el bucle for para cada fila a rowWithLabel para que pueda devolver el numero de la clase
-        for (int j = 0; j < tdata.size(tdata); j++){
-            RowWithLabel rowWithLabel = (RowWithLabel) tdata.getRowAt(j);
-            double distancia = calculateDistance(tdata.getRowAt(j).getData(), sample);
+        for (int i = 0; i < tdata.size(tdata); i++){
+            RowWithLabel rowWithLabel = tdata.getRowAt(i);
+            double distancia = calculateDistance(rowWithLabel.getData(), sample);
             if (distancia < minDistancia) {
                 minDistancia = distancia;
                 nClase = rowWithLabel.getNumberClass();
             }
-
         }
-        // Se le suma 1 para que empiezen las clases por el numero 1 y no el 0
-        return nClase + 1;
+        return nClase;
     }
 }

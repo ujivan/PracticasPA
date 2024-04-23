@@ -2,7 +2,7 @@ package recomendacionCanciones;
 
 import aprendizajeAutomatico.KNN;
 import aprendizajeAutomatico.Kmeans;
-import aritmetica.Algorithm;
+import aprendizajeAutomatico.Algorithm;
 import aritmetica.EuclideanDistance;
 import table.*;
 

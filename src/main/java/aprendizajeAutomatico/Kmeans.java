@@ -1,7 +1,5 @@
 package aprendizajeAutomatico;
-import aritmetica.Algorithm;
 import aritmetica.Distance;
-import excepciones.KmeansExceptionGruposMayorDatos;
 import table.*;
 
 import java.util.*;
@@ -15,8 +13,9 @@ public class Kmeans implements Algorithm<Table, Integer, Row>, Distance{
 
     Distance distance;
 
-    HashMap<Row, Integer> asignacionClusters = new HashMap<>(); // Mapa con filas con su cluster asigando
+    HashMap<Integer, List<Row>> asignacionClusters = new HashMap<>(); // Mapa con filas con su cluster asigando
     // mapa con la estimacion y todas las filas en una lista de rows
+
 
     public Kmeans(int numClusters, int numIterations, long seed, Distance distance) {
         this.numClusters = numClusters;
@@ -24,6 +23,18 @@ public class Kmeans implements Algorithm<Table, Integer, Row>, Distance{
         this.seed = seed;
         this.clusters = new ArrayList<>();
         this.distance = distance;
+
+    }
+    public void putRow(int numRepresentante, Row row){
+        if (asignacionClusters.containsKey(numClusters)){
+            List<Row> listaRows = asignacionClusters.get(numRepresentante);
+            listaRows.add(row);
+            asignacionClusters.put(numRepresentante, listaRows);
+        } else {
+            List<Row> listaRows = new ArrayList<>();
+            listaRows.add(row);
+            asignacionClusters.put(numRepresentante, listaRows);
+        }
 
     }
 
@@ -43,7 +54,7 @@ public class Kmeans implements Algorithm<Table, Integer, Row>, Distance{
             for (int j = 0; j < datos.size(datos); j++){
                 Row row = datos.getRowAt(j);
                 int numRepresentante = estimate(row);
-                asignacionClusters.put(row, numRepresentante);
+                putRow(numRepresentante, row);
 
             }
             for (int cluster = 0; cluster < numClusters; cluster++) {
@@ -73,15 +84,7 @@ public class Kmeans implements Algorithm<Table, Integer, Row>, Distance{
     }
 
     private List<Row> buscarGruposPuntos(Integer cluster){
-        List<Row> grupo = new ArrayList<>();
-        for (Map.Entry<Row, Integer> entry : asignacionClusters.entrySet()) {
-
-            if (entry.getValue() == cluster){
-
-                grupo.add(entry.getKey());
-            }
-        }
-        return grupo;
+        return asignacionClusters.get(cluster);
     }
 
 

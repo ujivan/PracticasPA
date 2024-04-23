@@ -2,11 +2,8 @@ package table;
 
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,88 +12,76 @@ class TableTest {
     @Test
     void numFilasTable() {
 
-        /*
-        String rutaFichero = "archivos"+ File.separator+"miles_dollars.csv";
-        Scanner tabla = new Scanner(new File(rutaFichero));
-        int contadorfilas = 0;
-
-        while (tabla.hasNextLine()){
-            String linea = tabla.nextLine();
-            contadorfilas++;
-        }
-        tabla.close();
-
-        Table tablaMetodo = CSV.readTable(rutaFichero);
-        assertEquals(tablaMetodo.size(tablaMetodo), contadorfilas);
-
-         */
         Table tabla = new Table();
         List<Double> ej1 = List.of(1.8, 1.8, 1.8);
         List<Double> ej2 = List.of(2.7, 2.7, 2.7);
+        List<Double> ej3 = List.of(1.8, 1.8, 1.8);
+        List<Double> ej4 = List.of(2.7, 2.7, 2.7);
+        List<Double> ej5 = List.of(1.8, 1.8, 1.8);
+        List<Double> ej6 = List.of(2.7, 2.7, 2.7);
 
-        tabla.addRow(ej1);
-        tabla.addRow(ej2);
+        tabla.addRow(new Row(ej1));
+        tabla.addRow(new Row(ej2));
+        tabla.addRow(new Row(ej3));
+        tabla.addRow(new Row(ej4));
+        tabla.addRow(new Row(ej5));
+        tabla.addRow(new Row(ej6));
 
-        assertEquals(tabla.size(tabla), 2);
-
+        assertEquals(tabla.size(tabla), 6);
 
     }
     @Test
-    void columnasTable() throws FileNotFoundException {
-        String rutaFichero = "archivos"+ File.separator+"miles_dollars.csv";
-        Scanner tabla = new Scanner(new File(rutaFichero));
+    void columnasTable() {
 
-        int contadorColumnas = 0;
+        List<String> cabeceras = new ArrayList<>();
+        cabeceras.add("Zorros");
+        cabeceras.add("Leones");
+        cabeceras.add("Elefentes");
+        cabeceras.add("Perros");
+        cabeceras.add("Gatos");
 
-        String linea = tabla.nextLine();
-        contadorColumnas = linea.split(",").length;
+        Table table = new Table();
+        table.addHeaders(cabeceras);
 
-        tabla.close();
-        Table tablaMetodo = CSV.readTable(rutaFichero);
-        assertEquals(tablaMetodo.sizeHeaders(tablaMetodo), contadorColumnas);
-
-    }
-
-    @Test
-    void headersTable() throws FileNotFoundException {
-        String rutaFichero = "archivos"+ File.separator+"miles_dollars.csv";
-        Scanner tabla = new Scanner(new File(rutaFichero));
-
-        Table tablaMetodo = CSV.readTable(rutaFichero);
-
-        List<String> listaHeaders = new ArrayList<>();
-        String primeraLinea = tabla.nextLine();
-
-        String[] cabeceras = primeraLinea.split(",");
-        listaHeaders.addAll(List.of(cabeceras));
-
-        tabla.close();
-        assertEquals(tablaMetodo.getHeaders(tablaMetodo), listaHeaders);
+        assertEquals(table.sizeHeaders(table), 5);
 
     }
 
     @Test
-    void recuperarContenidoFilasTable() throws FileNotFoundException {
-        String rutaFichero = "archivos"+ File.separator+"miles_dollars.csv";
-        Scanner tabla = new Scanner(new File(rutaFichero));
+    void headersTable()  {
 
-        Table tablaMetodo = CSV.readTable(rutaFichero);
-        int contador = 0;
+        List<String> cabeceras = new ArrayList<>();
+        cabeceras.add("Zorros");
+        cabeceras.add("Leones");
+        cabeceras.add("Elefentes");
+        cabeceras.add("Perros");
+        cabeceras.add("Gatos");
 
-        while (tabla.hasNextLine()){
-            String linea = tabla.nextLine();
-            List<Double> almacenLinea = new ArrayList<>();
-            if (contador >= 1){
-                for (String dato : List.of(linea.split(","))){
-                    almacenLinea.add(Double.valueOf(dato));
-                }
-                Row fila = tablaMetodo.getRowAt(contador-1);
-                assertEquals(almacenLinea, fila.getData());
-            }
+        Table table = new Table();
+        table.addHeaders(cabeceras);
 
-            contador++;
-        }
-        tabla.close();
+        assertEquals(table.getHeaders(table), cabeceras);
+
+    }
+
+    @Test
+    void recuperarContenidoFilasTable() {
+
+        Table tabla = new Table();
+        List<Double> ej1 = List.of(1.8, 1.8, 1.8);
+        Row row1 = new Row(ej1);
+        List<Double> ej2 = List.of(2.7, 2.7, 2.7);
+        Row row2 = new Row(ej2);
+        List<Double> ej3 = List.of(3.8, 3.8, 3.8);
+        Row row3 = new Row(ej3);
+
+
+        tabla.addRow(row1);
+        tabla.addRow(row2);
+        tabla.addRow(row3);
+
+        assertEquals(tabla.getRowAt(1), row2);
+        assertEquals(tabla.getRowAt(2), row3);
 
     }
 
