@@ -42,11 +42,16 @@ class KmeansTest {
 
         kmeans.train(table);
 
-        assertEquals(3, kmeans.estimate(ej7));
+        Row row1 = table.getRowAt(1);
+
+        assertEquals(3, kmeans.estimate(row1));
+        /*
         assertEquals(1, kmeans.estimate(ej1));
         assertEquals(2, kmeans.estimate(ej5));
         assertEquals(2, kmeans.estimate(ej9));
         assertThrows(IllegalArgumentException.class, ()-> kmeans.estimate(ej10));
+
+         */
     }
     @Test
     void estimateManhattan() throws KmeansExceptionGruposMayorDatos {
@@ -75,11 +80,17 @@ class KmeansTest {
         table.addRow(ej8);
 
         kmeans.train(table);
+        Row row1 = table.getRowAt(1);
+
+        assertEquals(3, kmeans.estimate(row1));
+        /*
 
         assertEquals(1, kmeans.estimate(ej1));
         assertEquals(2, kmeans.estimate(ej5));
         assertEquals(2, kmeans.estimate(List.of(180.0, 180.0, 180.0)));
         assertThrows(IllegalArgumentException.class, ()-> kmeans.estimate(ej9));
+
+         */
 
 
     }

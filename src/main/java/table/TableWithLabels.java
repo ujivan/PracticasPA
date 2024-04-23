@@ -10,13 +10,14 @@ public class TableWithLabels extends Table{
     public Map<String,Integer> labelsToIndex = new HashMap<>();
 
     int num =  0;
-    public List<RowWithLabel> rows = new ArrayList<>();
 
-    public void addRowLabel(RowWithLabel row) {
-        rows.add(row);
+    public void addRow(List<Double> linea, int numero) {
+        super.addRow(linea);
     }
 
-
+    public Integer size(Table datos){
+        return super.size(datos);
+    }
 
     public RowWithLabel getRowAt(int n) {
         return (RowWithLabel) super.getRowAt(n);
@@ -33,7 +34,7 @@ public class TableWithLabels extends Table{
         }
     }
 
-    public boolean addLabel (String label){
+    public boolean addLabel(String label){
         if (labelsToIndex.containsKey(label)){
             return false;
         }
@@ -41,7 +42,5 @@ public class TableWithLabels extends Table{
         num++;
         return true;
     }
-    public void addRowWithLabel(List<Double> linea, int numero){
-        this.rows.add(new RowWithLabel(linea, numero));
-    }
+
 }

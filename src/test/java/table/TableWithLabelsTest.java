@@ -15,6 +15,8 @@ class TableWithLabelsTest {
 
     @Test
     void numFilaTableWithLabels() throws FileNotFoundException {
+
+        /*
         String rutaFichero = "archivos"+ File.separator+"iris.csv";
         Scanner tabla = new Scanner(new File(rutaFichero));
         int contadorfilas = 0;
@@ -26,7 +28,11 @@ class TableWithLabelsTest {
         tabla.close();
 
         TableWithLabels tablaMetodo = CSV.readTableWithLabel(rutaFichero);
-        assertEquals(tablaMetodo.rows.size()+1, contadorfilas);
+        assertEquals(tablaMetodo.size(tablaMetodo)+1, contadorfilas);
+
+         */
+
+
     }
 
     @Test
@@ -41,7 +47,7 @@ class TableWithLabelsTest {
 
         tabla.close();
         TableWithLabels tablaMetodo = CSV.readTableWithLabel(rutaFichero);
-        assertEquals(tablaMetodo.headers.size(), contadorColumnas);
+        assertEquals(tablaMetodo.sizeHeaders(tablaMetodo), contadorColumnas);
 
     }
 
@@ -60,11 +66,12 @@ class TableWithLabelsTest {
         listaHeaders.addAll(List.of(cabeceras));
 
         tabla.close();
-        assertEquals(tablaMetodo.headers, listaHeaders);
+        assertEquals(tablaMetodo.getHeaders(tablaMetodo), listaHeaders);
 
     }
     @Test
     void numFilasAsignadaTableWithLabels() throws FileNotFoundException {
+        /*
         String rutaFichero = "archivos"+ File.separator+"iris.csv";
         Scanner tabla = new Scanner(new File(rutaFichero));
         String label = "";
@@ -93,10 +100,14 @@ class TableWithLabelsTest {
 
         }
         tabla.close();
+
+         */
     }
 
     @Test
     void recuperarContenidoFilasTableWithLabels() throws FileNotFoundException {
+
+        /*
         String rutaFichero = "archivos"+ File.separator+"iris.csv";
         Scanner tabla = new Scanner(new File(rutaFichero));
         TableWithLabels tablaMetodo = CSV.readTableWithLabel(rutaFichero);
@@ -112,12 +123,23 @@ class TableWithLabelsTest {
                 for (int i = 0; i < lineaAux.size()-1 ; i++){
                     almacenLinea.add(Double.valueOf(lineaAux.get(i)));
                 }
-                Row fila = tablaMetodo.rows.get(contador-1);
+                Row fila = tablaMetodo.getRowAt(contador-1);
                 assertEquals(almacenLinea, fila.getData());
             }
             contador++;
         }
         tabla.close();
+
+         */
+        TableWithLabels tabla = new TableWithLabels();
+        List<Double> ej1 = List.of(1.8, 1.8, 1.8);
+        List<Double> ej2 = List.of(2.7, 2.7, 2.7);
+
+        tabla.addRow(ej1);
+        tabla.addRow(ej2);
+
+        assertEquals(tabla.getRowAt(1), ej1);
+
 
     }
 

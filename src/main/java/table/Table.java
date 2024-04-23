@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Table{
-    public List<String> headers = new ArrayList<>();
-    public List<Row> rows = new ArrayList<>();
+    private List<String> headers = new ArrayList<>();
+    private List<Row> rows = new ArrayList<>();
 
     public Row getRowAt(int rowNumber) {
         return rows.get(rowNumber);
+    }
+    public List<String> getHeaders(Table datos){
+        return headers;
     }
     public void addRow(List<Double> linea) {
         rows.add(new Row(linea));
@@ -17,5 +20,13 @@ public class Table{
     public void addHeaders(List<String> cabeceras){
         headers = cabeceras;
     }
+
+    public Integer size(Table datos){
+        return rows.size();
+    }
+    public Integer sizeHeaders(Table datos){
+        return headers.size();
+    }
+
 
 }

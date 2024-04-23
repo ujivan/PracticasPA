@@ -33,9 +33,9 @@ public class RecSys implements Algorithm<Table, Integer, List<Double>> {
         if (testData == null || testItemNames == null) {
             throw new IllegalArgumentException("Los datos de prueba o los nombres de los elementos son nulos");
         }
-        List<Row> rows = testData.rows;
-        for (int i = 0; i < testData.rows.size(); i++) {
-            Row row = rows.get(i);
+
+        for (int i = 0; i < testData.size(testData); i++) {
+            Row row = testData.getRowAt(i);
             Integer numEst = estimate(row.getData());
             mapaEstimaciones.put(i, numEst);
         }

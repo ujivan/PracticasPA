@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 
 
-public class CSV extends Table{
+public class CSV {
     public static Table readTable(String file)  {
         Table table = new Table();
         // Leemos las lineas del archivo mediante un Bufferreader
@@ -55,7 +55,7 @@ public class CSV extends Table{
                     }
                     // Buscamos el numero correspondiente a la etiqueta mediante el metodo search y así poder añadir los valores con la etiqueta a la tabla
                     int labelRef = table.search(output.get(output.size()-1));
-                    table.addRowWithLabel(outputDouble, labelRef);
+                    table.addRow(outputDouble, labelRef);
 
                 }
             }

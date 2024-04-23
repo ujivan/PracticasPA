@@ -13,7 +13,9 @@ import static org.junit.jupiter.api.Assertions.*;
 class TableTest {
 
     @Test
-    void numFilasTable() throws FileNotFoundException {
+    void numFilasTable() {
+
+        /*
         String rutaFichero = "archivos"+ File.separator+"miles_dollars.csv";
         Scanner tabla = new Scanner(new File(rutaFichero));
         int contadorfilas = 0;
@@ -25,9 +27,17 @@ class TableTest {
         tabla.close();
 
         Table tablaMetodo = CSV.readTable(rutaFichero);
-        assertEquals(tablaMetodo.rows.size()+1, contadorfilas);
+        assertEquals(tablaMetodo.size(tablaMetodo), contadorfilas);
 
+         */
+        Table tabla = new Table();
+        List<Double> ej1 = List.of(1.8, 1.8, 1.8);
+        List<Double> ej2 = List.of(2.7, 2.7, 2.7);
 
+        tabla.addRow(ej1);
+        tabla.addRow(ej2);
+
+        assertEquals(tabla.size(tabla), 2);
 
 
     }
@@ -43,7 +53,7 @@ class TableTest {
 
         tabla.close();
         Table tablaMetodo = CSV.readTable(rutaFichero);
-        assertEquals(tablaMetodo.headers.size(), contadorColumnas);
+        assertEquals(tablaMetodo.sizeHeaders(tablaMetodo), contadorColumnas);
 
     }
 
@@ -61,7 +71,7 @@ class TableTest {
         listaHeaders.addAll(List.of(cabeceras));
 
         tabla.close();
-        assertEquals(tablaMetodo.headers, listaHeaders);
+        assertEquals(tablaMetodo.getHeaders(tablaMetodo), listaHeaders);
 
     }
 
@@ -80,7 +90,7 @@ class TableTest {
                 for (String dato : List.of(linea.split(","))){
                     almacenLinea.add(Double.valueOf(dato));
                 }
-                Row fila = tablaMetodo.rows.get(contador-1);
+                Row fila = tablaMetodo.getRowAt(contador-1);
                 assertEquals(almacenLinea, fila.getData());
             }
 

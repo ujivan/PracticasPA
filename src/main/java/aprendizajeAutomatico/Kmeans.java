@@ -6,7 +6,7 @@ import table.*;
 
 import java.util.*;
 
-public class Kmeans implements Algorithm<Table, Integer, List<Double>>, Distance{
+public class Kmeans implements Algorithm<Table, Integer, Row>, Distance{
 
     private int numClusters; // Número de grupos
     private int numIterations; // Número de iteraciones
@@ -16,6 +16,7 @@ public class Kmeans implements Algorithm<Table, Integer, List<Double>>, Distance
     Distance distance;
 
     HashMap<Row, Integer> asignacionClusters = new HashMap<>(); // Mapa con filas con su cluster asigando
+    // mapa con la estimacion y todas las filas en una lista de rows
 
     public Kmeans(int numClusters, int numIterations, long seed, Distance distance) {
         this.numClusters = numClusters;
@@ -32,15 +33,16 @@ public class Kmeans implements Algorithm<Table, Integer, List<Double>>, Distance
     @Override
     public void train(Table datos) throws KmeansExceptionGruposMayorDatos {
 
-        if (numClusters > datos.rows.size()) {
+        if (numClusters > datos.size(datos)) {
             throw new KmeansExceptionGruposMayorDatos(" El número de grupos es mayor que el número de datos");
         }
         añadirClustersAleatorios(datos);
 
         for (int i = 0; i < numIterations; i++){
             asignacionClusters.clear();
-            for (Row row : datos.rows){
-                int numRepresentante = buscarClusterMasCercano(row);
+            for (int j = 0; j < datos.size(datos); j++){
+                Row row = datos.getRowAt(j);
+                int numRepresentante = estimate(row);
                 asignacionClusters.put(row, numRepresentante);
 
             }
@@ -52,19 +54,7 @@ public class Kmeans implements Algorithm<Table, Integer, List<Double>>, Distance
         }
     }
 
-    private int buscarClusterMasCercano(Row row){
-        double minDistancia = Double.MAX_VALUE;
-        int numRepresentante = 0;
-        for (int j = 0; j < numClusters; j++){
-            double distancia = calculateDistance(row.getData(), clusters.get(j));
-            if (distancia < minDistancia) {
-                minDistancia = distancia;
-                numRepresentante = j + 1;
-            }
-        }
-        return numRepresentante;
 
-    }
     private void añadirClustersAleatorios (Table datos){
         Random random = new Random(seed);
 
@@ -73,7 +63,7 @@ public class Kmeans implements Algorithm<Table, Integer, List<Double>>, Distance
         for (int i = 0; i < numClusters; i++) {
             int randomIndex;
             do {
-                randomIndex = random.nextInt(datos.rows.size());
+                randomIndex = random.nextInt(datos.size(datos));
             } while (selectedIndices.contains(randomIndex));
 
             selectedIndices.add(randomIndex);
@@ -118,18 +108,17 @@ public class Kmeans implements Algorithm<Table, Integer, List<Double>>, Distance
 
 
     @Override
-    public Integer estimate(List<Double> dato){
-
+    public Integer estimate(Row row){
         double minDistancia = Double.MAX_VALUE;
-        int numRespresentante = -1;
-        for (int i = 0; i < numClusters; i++) {
-            double distancia = calculateDistance(dato, clusters.get(i));
+        int numRepresentante = 0;
+        for (int j = 0; j < numClusters; j++){
+            double distancia = calculateDistance(row.getData(), clusters.get(j));
             if (distancia < minDistancia) {
                 minDistancia = distancia;
-                numRespresentante = i + 1;
+                numRepresentante = j + 1;
             }
         }
-        return numRespresentante;
+        return numRepresentante;
     }
 
 }

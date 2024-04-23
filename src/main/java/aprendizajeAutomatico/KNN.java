@@ -33,13 +33,14 @@ public class KNN implements Algorithm<TableWithLabels, Integer, List<Double>>, D
         Integer nClase = null;
 
         // Cambiamos de la clase row que necesita el bucle for para cada fila a rowWithLabel para que pueda devolver el numero de la clase
-        for (Row row : tdata.rows) {
-            RowWithLabel rowWithLabel = (RowWithLabel) row;
-            double distancia = calculateDistance(row.getData(), sample);
+        for (int j = 0; j < tdata.size(tdata); j++){
+            RowWithLabel rowWithLabel = (RowWithLabel) tdata.getRowAt(j);
+            double distancia = calculateDistance(tdata.getRowAt(j).getData(), sample);
             if (distancia < minDistancia) {
                 minDistancia = distancia;
                 nClase = rowWithLabel.getNumberClass();
             }
+
         }
         // Se le suma 1 para que empiezen las clases por el numero 1 y no el 0
         return nClase + 1;
