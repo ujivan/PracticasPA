@@ -32,6 +32,7 @@ public class TableWithLabels extends Table{
     /*public RowWithLabel getRowAt(int rowumber ){
         return dataWithLabel.get(rowumber);
     }
+    ijjn
 
      */
     public void addRowWhithLabel(List<Double> row, int numero){
