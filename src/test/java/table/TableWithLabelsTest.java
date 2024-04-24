@@ -63,7 +63,7 @@ class TableWithLabelsTest {
         TableWithLabels table = new TableWithLabels();
         table.addHeaders(cabeceras);
 
-        assertEquals(table.getHeaders(table), cabeceras);
+        assertEquals(table.getHeaders(), cabeceras);
 
     }
     @Test
@@ -84,9 +84,9 @@ class TableWithLabelsTest {
         tabla.addRow(new RowWithLabel(ej5, 4));
         tabla.addRow(new RowWithLabel(ej6, 5));
 
-        assertEquals(tabla.search("1"), 1);
-        assertEquals(tabla.search("2"), 2);
-        assertEquals(tabla.search("3"), 3);
+        assertEquals(tabla.search("1"), 0);
+        assertEquals(tabla.search("2"), 1);
+        assertEquals(tabla.search("3"), 2);
 
 
     }

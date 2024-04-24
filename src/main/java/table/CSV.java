@@ -58,6 +58,7 @@ public class CSV {
                     int labelRef = table.search(output.get(output.size()-1));
                     Row row = new Row(outputDouble);
                     table.addRow(row);
+                    //table.addRowWhithLabel((List<Double>) row, labelRef);
 
                 }
             }

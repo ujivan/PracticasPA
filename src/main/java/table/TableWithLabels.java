@@ -1,13 +1,24 @@
 package table;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
 public class TableWithLabels extends Table{
-    public Map<String,Integer> labelsToIndex = new HashMap<>();
+    private Map<String,Integer> labelsToIndex = new HashMap<>();
+    private int num =  0;
+    private List<RowWithLabel> dataWithLabel = new ArrayList<>();
 
-    int num =  1;
+    public Map<String,Integer> getLabelsToIndex(){
+        return labelsToIndex;
+    }
+    public List<RowWithLabel> getDataWithLabel(){
+        return dataWithLabel;
+    }
+
+
 
     public Integer size(Table datos){
         return super.size(datos);
@@ -17,6 +28,16 @@ public class TableWithLabels extends Table{
         return (RowWithLabel) super.getRowAt(n);
     }
 
+
+    /*public RowWithLabel getRowAt(int rowumber ){
+        return dataWithLabel.get(rowumber);
+    }
+
+     */
+    public void addRowWhithLabel(List<Double> row, int numero){
+        dataWithLabel.add(new RowWithLabel(row, numero));
+
+    }
 
     public int search(String label){
         if (labelsToIndex.containsKey(label)){

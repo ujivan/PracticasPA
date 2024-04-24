@@ -60,7 +60,7 @@ class TableTest {
         Table table = new Table();
         table.addHeaders(cabeceras);
 
-        assertEquals(table.getHeaders(table), cabeceras);
+        assertEquals(table.getHeaders(), cabeceras);
 
     }
 
