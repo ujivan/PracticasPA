@@ -1,6 +1,7 @@
 package ReadFiles;
 
 import table.Row;
+import table.RowWithLabel;
 import table.TableWithLabels;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,9 @@ public class CSVLabeledFileReader extends CSVUnlabeledFileReader{
         for (int i = 0; i < output.size()-1; i++) {
             outputDouble.add(Double.valueOf(output.get(i)));
         }
-        Row row = new Row(outputDouble);
+        String label = output.get(output.size() - 1);
+        int labelRef = table.search(label);
+        RowWithLabel row = new RowWithLabel(outputDouble, labelRef);
         table.addRow(row);
     }
 

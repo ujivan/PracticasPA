@@ -1,7 +1,6 @@
 package aprendizajeAutomatico;
-
+import ReadFiles.*;
 import aritmetica.ManhattanDistance;
-import table.CSV;
 import table.TableWithLabels;
 import org.junit.jupiter.api.Test;
 import java.io.FileNotFoundException;
@@ -17,8 +16,10 @@ class KNNTest {
     void pruebaEstimateEuclidean() throws FileNotFoundException {
         KNN knn = new KNN(new EuclideanDistance());
 
-        String rutaFichero = "archivos"+ File.separator+"iris.csv";
-        TableWithLabels tabla = CSV.readTableWithLabel(rutaFichero);
+
+        String rutaFichero = "archivos" + File.separator+"iris.csv";
+        CSVLabeledFileReader labeledReader = new CSVLabeledFileReader(rutaFichero);
+        TableWithLabels tabla = (TableWithLabels) labeledReader.readTableFromSource();
 
         knn.train(tabla);
 
@@ -32,13 +33,15 @@ class KNNTest {
         List<Double> ejemplo8 = List.of(3.4,7.4,0.5,1.3);
         List<Double> ejemplo9 = List.of(4.7,2.1,3.2,1.5);
         List<Double> ejemplo10 = List.of(5.1,3.5,1.1,6.8);
+        List<Double> ejemplo11 = List.of(5.1,7.8,2.5,6.8);
 
         assertEquals(1, knn.estimate(ejemplo));
         assertEquals(2, knn.estimate(ejemplo2));
         assertEquals(3, knn.estimate(ejemplo3));
         assertEquals(1, knn.estimate(ejemplo8));
         assertEquals(2, knn.estimate(ejemplo9));
-        assertEquals(3, knn.estimate(ejemplo10));
+        assertEquals(2, knn.estimate(ejemplo10));
+        assertEquals(3, knn.estimate(ejemplo11));
         assertThrows(IllegalArgumentException.class, ()-> knn.estimate(ejemplo4));
         assertThrows(IllegalArgumentException.class, ()-> knn.estimate(ejemplo5));
         assertThrows(IllegalArgumentException.class, ()-> knn.estimate(ejemplo6));
@@ -51,7 +54,8 @@ class KNNTest {
         KNN knn = new KNN(new ManhattanDistance());
 
         String rutaFichero = "archivos"+ File.separator+"iris.csv";
-        TableWithLabels tabla = CSV.readTableWithLabel(rutaFichero);
+        CSVLabeledFileReader labeledReader = new CSVLabeledFileReader(rutaFichero);
+        TableWithLabels tabla = (TableWithLabels) labeledReader.readTableFromSource();
 
         knn.train(tabla);
 

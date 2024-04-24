@@ -26,7 +26,7 @@ public class Kmeans implements Algorithm<Table, Integer, Row>, Distance{
 
     }
     public void putRow(int numRepresentante, Row row){
-        if (asignacionClusters.containsKey(numClusters)){
+        if (asignacionClusters.containsKey(numRepresentante)){
             List<Row> listaRows = asignacionClusters.get(numRepresentante);
             listaRows.add(row);
             asignacionClusters.put(numRepresentante, listaRows);

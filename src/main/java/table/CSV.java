@@ -55,11 +55,10 @@ public class CSV {
                         outputDouble.add(Double.valueOf(output.get(i)));
                     }
                     // Buscamos el numero correspondiente a la etiqueta mediante el metodo search y así poder añadir los valores con la etiqueta a la tabla
-                    int labelRef = table.search(output.get(output.size()-1));
-                    Row row = new Row(outputDouble);
+                    String label = output.get(output.size() - 1);
+                    int labelRef = table.search(label);
+                    RowWithLabel row = new RowWithLabel(outputDouble, labelRef);
                     table.addRow(row);
-                    //table.addRowWhithLabel((List<Double>) row, labelRef);
-
                 }
             }
         } catch (IOException e) {

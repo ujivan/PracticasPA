@@ -32,7 +32,7 @@ public class KNN implements Algorithm<TableWithLabels, Integer, List<Double>>, D
         double minDistancia = Double.MAX_VALUE;
         int nClase = -1;
 
-        /*for (int i = 0; i < tdata.size(tdata); i++){
+        for (int i = 0; i < tdata.size(tdata); i++){
             RowWithLabel rowWithLabel = tdata.getRowAt(i);
             double distancia = calculateDistance(rowWithLabel.getData(), sample);
             if (distancia < minDistancia) {
@@ -41,17 +41,6 @@ public class KNN implements Algorithm<TableWithLabels, Integer, List<Double>>, D
             }
         }
 
-         */
-        for (RowWithLabel row: tdata.getDataWithLabel()){
-            double distancia = calculateDistance(row.getData(), sample);
-            System.out.println(distancia);
-            // Comparo la distancia actual con la minima que tengo almacenada, para ir almacenando la que mas se acerque
-            if (distancia < minDistancia) {
-                minDistancia = distancia;
-                nClase = row.getNumberClass();
-            }
-        }
-
-        return nClase;
+        return nClase + 1;
     }
 }
