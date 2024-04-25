@@ -41,15 +41,10 @@ class KmeansTest {
 
         kmeans.train(table);
 
-        Row row1 = table.getRowAt(0);
-        Row row2 = table.getRowAt(4);
-        Row row3 = new Row(ej10);
-        Row row4 = new Row(ej11);
-
-        assertEquals(1, kmeans.estimate(row1));
-        assertEquals(2, kmeans.estimate(row2));
-        assertEquals(2, kmeans.estimate(row4));
-        assertThrows(IllegalArgumentException.class, ()-> kmeans.estimate(row3));
+        assertEquals(1, kmeans.estimate(ej1));
+        assertEquals(1, kmeans.estimate(ej4));
+        assertEquals(2, kmeans.estimate(ej11));
+        assertThrows(IllegalArgumentException.class, ()-> kmeans.estimate(ej10));
 
     }
     @Test
@@ -82,15 +77,10 @@ class KmeansTest {
 
         kmeans.train(table);
 
-        Row row1 = table.getRowAt(0);
-        Row row2 = table.getRowAt(4);
-        Row row3 = new Row(ej10);
-        Row row4 = new Row(ej11);
-
-        assertEquals(1, kmeans.estimate(row1));
-        assertEquals(2, kmeans.estimate(row2));
-        assertEquals(2, kmeans.estimate(row4));
-        assertThrows(IllegalArgumentException.class, ()-> kmeans.estimate(row3));
+        assertEquals(1, kmeans.estimate(ej1));
+        assertEquals(2, kmeans.estimate(ej5));
+        assertEquals(2, kmeans.estimate(ej11));
+        assertThrows(IllegalArgumentException.class, ()-> kmeans.estimate(ej10));
 
 
     }

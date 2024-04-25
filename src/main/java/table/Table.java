@@ -22,9 +22,6 @@ public class Table{
     public void addRow(Row row) {
         rows.add(row);
     }
-    public void addRowDouble(List<Double> linea){
-        rows.add(new Row(linea));
-    }
 
     public void addHeaders(List<String> cabeceras){
         this.headers = cabeceras;

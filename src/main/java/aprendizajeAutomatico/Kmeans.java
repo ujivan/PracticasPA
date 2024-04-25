@@ -4,7 +4,7 @@ import table.*;
 
 import java.util.*;
 
-public class Kmeans implements Algorithm<Table, Integer, Row>, Distance{
+public class Kmeans implements Algorithm<Table, Integer, List<Double>>, Distance{
 
     private int numClusters; // Número de grupos
     private int numIterations; // Número de iteraciones
@@ -13,8 +13,7 @@ public class Kmeans implements Algorithm<Table, Integer, Row>, Distance{
 
     Distance distance;
 
-    HashMap<Integer, List<Row>> asignacionClusters = new HashMap<>(); // Mapa con filas con su cluster asigando
-    // mapa con la estimacion y todas las filas en una lista de rows
+    private HashMap<Integer, List<Row>> asignacionClusters = new HashMap<>(); // mapa con la estimacion y todas las filas en una lista de rows
 
 
     public Kmeans(int numClusters, int numIterations, long seed, Distance distance) {
@@ -26,7 +25,7 @@ public class Kmeans implements Algorithm<Table, Integer, Row>, Distance{
 
     }
     public void putRow(int numRepresentante, Row row){
-        if (asignacionClusters.containsKey(numRepresentante)){
+        if (asignacionClusters.containsKey(numRepresentante)) {
             List<Row> listaRows = asignacionClusters.get(numRepresentante);
             listaRows.add(row);
             asignacionClusters.put(numRepresentante, listaRows);
@@ -52,9 +51,9 @@ public class Kmeans implements Algorithm<Table, Integer, Row>, Distance{
         for (int i = 0; i < numIterations; i++){
             asignacionClusters.clear();
             for (int j = 0; j < datos.size(datos); j++){
-                Row row = datos.getRowAt(j);
+                List<Double> row = datos.getRowAt(j).getData();
                 int numRepresentante = estimate(row);
-                putRow(numRepresentante, row);
+                putRow(numRepresentante, datos.getRowAt(j));
 
             }
             for (int cluster = 0; cluster < numClusters; cluster++) {
@@ -110,12 +109,13 @@ public class Kmeans implements Algorithm<Table, Integer, Row>, Distance{
     }
 
 
-    @Override
-    public Integer estimate(Row row){
+
+    public Integer estimate(List<Double> dato){
         double minDistancia = Double.MAX_VALUE;
         int numRepresentante = 0;
         for (int j = 0; j < numClusters; j++){
-            double distancia = calculateDistance(row.getData(), clusters.get(j));
+
+            double distancia = calculateDistance(dato, clusters.get(j));
             if (distancia < minDistancia) {
                 minDistancia = distancia;
                 numRepresentante = j + 1;

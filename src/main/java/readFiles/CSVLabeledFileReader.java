@@ -1,6 +1,5 @@
-package ReadFiles;
+package readFiles;
 
-import table.Row;
 import table.RowWithLabel;
 import table.TableWithLabels;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package ReadFiles;
+package readFiles;
 
 import table.Row;
 import table.Table;

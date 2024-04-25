@@ -11,14 +11,6 @@ public class TableWithLabels extends Table{
     private int num =  0;
     private List<RowWithLabel> dataWithLabel = new ArrayList<>();
 
-    public Map<String,Integer> getLabelsToIndex(){
-        return labelsToIndex;
-    }
-    public List<RowWithLabel> getDataWithLabel(){
-        return dataWithLabel;
-    }
-
-
 
     public Integer size(Table datos){
         return super.size(datos);
@@ -26,12 +18,6 @@ public class TableWithLabels extends Table{
 
     public RowWithLabel getRowAt(int n) {
         return (RowWithLabel) super.getRowAt(n);
-    }
-
-
-    public void addRowWhithLabel(List<Double> row, int numero){
-        dataWithLabel.add(new RowWithLabel(row, numero));
-
     }
 
     public int search(String label){

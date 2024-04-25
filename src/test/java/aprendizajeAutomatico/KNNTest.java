@@ -1,5 +1,5 @@
 package aprendizajeAutomatico;
-import ReadFiles.*;
+import readFiles.*;
 import aritmetica.ManhattanDistance;
 import table.TableWithLabels;
 import org.junit.jupiter.api.Test;
