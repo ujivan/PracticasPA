@@ -7,7 +7,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-
+// ESTE CÓDIGO EXISTE SOLO PARA COMPROBAR EL CORRECTO FUNCIONAMIENTO DEL SONGRECSYS, (teóricamente debería desaparecer
+// debido a que su funcion ya esta implementada en ReaderTemplate)
 public class CSV {
     public static Table readTable(String file)  {
         Table table = new Table();

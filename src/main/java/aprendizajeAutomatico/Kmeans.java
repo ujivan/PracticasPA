@@ -13,7 +13,8 @@ public class Kmeans implements Algorithm<Table, Integer, List<Double>>, Distance
 
     Distance distance;
 
-    private HashMap<Integer, List<Row>> asignacionClusters = new HashMap<>(); // mapa con la estimacion y todas las filas en una lista de rows
+    private HashMap<Integer, List<Row>> asignacionClusters = new HashMap<>();
+    // mapa con la estimacion y todas las filas en una lista de rows
 
 
     public Kmeans(int numClusters, int numIterations, long seed, Distance distance) {
